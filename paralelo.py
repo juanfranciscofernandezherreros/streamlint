@@ -6,7 +6,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 # 1. Configuración del modelo
 # Asegúrate de tener tu API Key en las variables de entorno
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "tu_api_key_aquí"
 model = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 # 2. Definimos los diferentes "caminos" o ramas
