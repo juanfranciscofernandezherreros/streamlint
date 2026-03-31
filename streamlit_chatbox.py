@@ -4,15 +4,18 @@ import os
 import sys
 import io
 from datetime import datetime
+
+# --- LANGCHAIN IMPORTS ---
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 # --- CONFIGURACIÓN DE ENTORNO ---
+# Asegurar codificación UTF-8 para evitar errores en terminales Linux
 if sys.stdout.encoding != 'utf-8':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-# Carpeta donde se guardarán los JSONs
+# Carpeta donde se guardarán las sesiones JSON
 CHAT_DIR = "sesiones"
 if not os.path.exists(CHAT_DIR):
     os.makedirs(CHAT_DIR)
@@ -21,27 +24,30 @@ if not os.path.exists(CHAT_DIR):
 
 def obtener_lista_chats():
     """Lista los nombres de archivos .json en la carpeta de sesiones."""
+    if not os.path.exists(CHAT_DIR): return []
     archivos = [f for f in os.listdir(CHAT_DIR) if f.endswith(".json")]
     # Ordenar por fecha de modificación (más nuevos primero)
     archivos.sort(key=lambda x: os.path.getmtime(os.path.join(CHAT_DIR, x)), reverse=True)
     return archivos
 
 def guardar_chat(nombre_archivo, mensajes):
-    """Guarda la lista de mensajes en un archivo específico."""
+    """Guarda la lista de mensajes en un archivo JSON."""
     ruta = os.path.join(CHAT_DIR, nombre_archivo)
     datos = []
     for m in mensajes:
-        tipo = "system" if isinstance(m, SystemMessage) else "human" if isinstance(m, HumanMessage) else "ai"
+        if isinstance(m, SystemMessage): tipo = "system"
+        elif isinstance(m, HumanMessage): tipo = "human"
+        else: tipo = "ai"
         datos.append({"type": tipo, "content": m.content})
     
     with open(ruta, "w", encoding="utf-8") as f:
         json.dump(datos, f, ensure_ascii=False, indent=4)
 
 def cargar_chat(nombre_archivo):
-    """Carga mensajes de un archivo específico."""
+    """Carga mensajes de un archivo específico convirtiéndolos a objetos LangChain."""
     ruta = os.path.join(CHAT_DIR, nombre_archivo)
     if not os.path.exists(ruta):
-        return [SystemMessage(content="Eres un asistente amigable llamado ChatBot Pro.")]
+        return [SystemMessage(content="Eres un asistente amigable.")]
     
     with open(ruta, "r", encoding="utf-8") as f:
         datos = json.load(f)
@@ -53,18 +59,18 @@ def cargar_chat(nombre_archivo):
         return mensajes
 
 # --- INTERFAZ STREAMLIT ---
-st.set_page_config(page_title="Chat Manager", page_icon="🗂️", layout="wide")
+st.set_page_config(page_title="Chat Manager Pro", page_icon="🤖", layout="wide")
 
 # Inicializar estados de sesión
 if "chat_actual" not in st.session_state:
-    st.session_state.chat_actual = None # Ningún archivo seleccionado al inicio
+    st.session_state.chat_actual = None
 if "mensajes" not in st.session_state:
     st.session_state.mensajes = []
 
-# --- BARRA LATERAL (GESTIÓN DE SESIONES) ---
+# --- BARRA LATERAL ---
 with st.sidebar:
-    st.title("📂 Mis Conversaciones")
-    api_key = st.text_input("OpenAI API Key", type="password")
+    st.title("📂 Gestión de Chats")
+    api_key = st.text_input("OpenAI API Key", type="password", placeholder="sk-...")
     
     if st.button("➕ Nueva Conversación", use_container_width=True):
         st.session_state.chat_actual = None
@@ -72,61 +78,78 @@ with st.sidebar:
         st.rerun()
 
     st.divider()
+    st.subheader("Historial Reciente")
     
-    # Listar chats existentes
     chats_disponibles = obtener_lista_chats()
     for chat_file in chats_disponibles:
-        nombre_visible = chat_file.replace(".json", "").replace("_", " ")[:25]
-        # Botón para seleccionar chat
+        nombre_visible = chat_file.replace(".json", "").replace("_", " ")[:20]
         if st.button(f"💬 {nombre_visible}...", key=chat_file, use_container_width=True):
             st.session_state.chat_actual = chat_file
             st.session_state.mensajes = cargar_chat(chat_file)
             st.rerun()
 
 # --- ÁREA PRINCIPAL ---
-st.title("🤖 ChatBot Multitemático")
+st.title("🤖 ChatBot con PromptTemplate")
 
-# Renderizar chat seleccionado
+# Renderizar mensajes existentes (excluyendo el SystemMessage)
 for msg in st.session_state.mensajes:
     if isinstance(msg, SystemMessage): continue
     role = "assistant" if isinstance(msg, AIMessage) else "user"
     with st.chat_message(role):
         st.markdown(msg.content)
 
-# Lógica de chat
+# Lógica de Chat
 if api_key:
-    chat_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.7, api_key=api_key)
+    # 1. Configuración del Modelo
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7, api_key=api_key)
+    
+    # 2. Definición del PromptTemplate
+    # El MessagesPlaceholder es clave para insertar el historial de la sesión
     prompt = ChatPromptTemplate.from_messages([
         MessagesPlaceholder(variable_name="historial"),
-        ("human", "{mensaje}")
+        ("human", "{entrada_usuario}")
     ])
-    cadena = prompt | chat_model
+    
+    # Cadena LCEL
+    chain = prompt | llm
 
-    pregunta = st.chat_input("¿De qué quieres hablar hoy?")
+    pregunta = st.chat_input("Escribe tu mensaje...")
 
     if pregunta:
-        # Si es un chat nuevo y no tiene archivo, creamos el nombre basado en la pregunta
+        # Generar nombre de archivo si es el primer mensaje
         if st.session_state.chat_actual is None:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            # Limpiar nombre para que sea un nombre de archivo válido
-            nombre_base = "".join(x for x in pregunta[:20] if x.isalnum() or x == " ").strip().replace(" ", "_")
-            st.session_state.chat_actual = f"{nombre_base}_{timestamp}.json"
-            st.session_state.mensajes = [SystemMessage(content="Eres un asistente amigable.")]
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+            nombre_limpio = "".join(x for x in pregunta[:15] if x.isalnum() or x == " ").strip().replace(" ", "_")
+            st.session_state.chat_actual = f"{nombre_limpio}_{timestamp}.json"
+            if not st.session_state.mensajes:
+                st.session_state.mensajes.append(SystemMessage(content="Eres un asistente amigable."))
 
+        # Mostrar mensaje del usuario
         with st.chat_message("user"):
             st.markdown(pregunta)
         
+        # Respuesta de la IA con streaming
         with st.chat_message("assistant"):
             placeholder = st.empty()
             full_res = ""
-            for chunk in cadena.stream({"mensaje": pregunta, "historial": st.session_state.mensajes}):
+            
+            # Pasamos las variables al template: historial completo + pregunta actual
+            for chunk in chain.stream({
+                "historial": st.session_state.mensajes, 
+                "entrada_usuario": pregunta
+            }):
                 full_res += chunk.content
                 placeholder.markdown(full_res + "▌")
             placeholder.markdown(full_res)
         
-        # Guardar cambios
+        # Actualizar historial y guardar en disco
         st.session_state.mensajes.append(HumanMessage(content=pregunta))
         st.session_state.mensajes.append(AIMessage(content=full_res))
         guardar_chat(st.session_state.chat_actual, st.session_state.mensajes)
+
 else:
-    st.info("👈 Introduce tu API Key en la barra lateral para comenzar.")
+    st.warning("⚠️ Por favor, introduce tu OpenAI API Key en la barra lateral para continuar.")
+
+# Pie de página informativo
+if st.session_state.chat_actual:
+    st.caption(f"Archivo actual: `{st.session_state.chat_actual}`")
