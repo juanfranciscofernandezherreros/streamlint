@@ -1,4 +1,17 @@
+# Core
 langchain
 langchain-openai
+langchain-community
 streamlit
 python-dotenv
+
+# Document Loaders — nivel_4
+beautifulsoup4      # WebBaseLoader (10_read_from_website.py)
+pypdf               # PyPDFLoader  (11_read_pdf.py)
+
+# Opcional — instalar solo si se usan los loaders correspondientes
+# pip install unstructured          # DirectoryLoader/UnstructuredHTMLLoader (12, 14)
+# pip install youtube-transcript-api # YoutubeLoader (13)
+# pip install selenium               # SeleniumURLLoader (16)
+# pip install gitpython              # GitLoader (17)
+# pip install langchain-google-community google-auth-oauthlib google-api-python-client  # GoogleDriveLoader
