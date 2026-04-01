@@ -1,3 +1,19 @@
+"""
+output_parser2.py
+-----------------
+Ejemplo básico de salida estructurada con Pydantic y LangChain.
+
+Define un modelo Pydantic (``AnalisisTexto``) con dos campos tipados —
+``resumen`` y ``sentimiento`` — y usa ``llm.with_structured_output()`` para que
+el LLM devuelva directamente una instancia validada del modelo en lugar de
+texto libre.
+
+Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
+
+Ejecutar:
+    python output_parser2.py
+"""
+
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 

@@ -1,3 +1,22 @@
+"""
+all_exercise.py
+---------------
+Chatbot básico con opciones de configuración, construido con Streamlit y LangChain.
+
+Permite al usuario seleccionar desde la barra lateral:
+- **Temperatura** del modelo (creatividad de las respuestas, 0.0–1.0).
+- **Modelo** de OpenAI a utilizar (gpt-4o-mini, gpt-4.1-mini, gpt-4.1).
+- **Personalidad** del asistente: útil y amigable, profesional, casual,
+  experto técnico o creativo.
+
+El historial de conversación se mantiene en ``st.session_state`` durante la
+sesión activa y se incluye en cada llamada al modelo (últimos 10 mensajes).
+Las respuestas se renderizan con streaming para mejorar la experiencia de usuario.
+
+Uso:
+    streamlit run all_exercise.py
+"""
+
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import AIMessage, HumanMessage

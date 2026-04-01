@@ -1,3 +1,23 @@
+"""
+analisis_pydantic.py
+--------------------
+Análisis estructurado de texto con LangChain y Pydantic v2.
+
+Define el modelo ``AnalisisTexto`` con tres campos:
+- ``resumen``: resumen breve del texto analizado.
+- ``sentimiento``: clasificación (Positivo, Neutro, Negativo).
+- ``palabras_clave``: lista de 3–5 palabras clave extraídas.
+
+La cadena LCEL ``prompt | structured_llm`` envía el texto al modelo y devuelve
+directamente una instancia validada de ``AnalisisTexto``, eliminando la
+necesidad de parseo manual.
+
+Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
+
+Ejecutar:
+    python analisis_pydantic.py
+"""
+
 from typing import List
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI

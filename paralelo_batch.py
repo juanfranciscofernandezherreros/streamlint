@@ -1,3 +1,22 @@
+"""
+paralelo_batch.py
+-----------------
+Ejemplo de procesamiento en lote y paralelo con ``RunnableParallel`` y LangChain.
+
+Extiende el ejemplo de ``paralelo.py`` procesando múltiples entradas a la vez
+con ``.batch()``.  Las mismas tres ramas (respuesta, sentimiento, hashtags) se
+ejecutan concurrentemente para cada tema de la lista de entradas.
+
+El parámetro ``config={"max_concurrency": 5}`` permite limitar el número de
+peticiones simultáneas a la API.
+
+Requiere la variable de entorno ``OPENAI_API_KEY`` configurada (o asignada
+directamente en ``os.environ``).
+
+Ejecutar:
+    python paralelo_batch.py
+"""
+
 import os
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate

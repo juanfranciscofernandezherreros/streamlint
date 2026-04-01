@@ -1,3 +1,26 @@
+"""
+paralelo.py
+-----------
+Ejemplo de ejecución paralela con ``RunnableParallel`` y LangChain.
+
+Define tres cadenas LCEL independientes que se ejecutan simultáneamente sobre
+la misma entrada:
+
+- **respuesta**: genera una respuesta concisa al tema proporcionado.
+- **análisis_sentimiento**: detecta el sentimiento predominante (una palabra).
+- **etiquetas**: genera 3 hashtags relacionados con el tema.
+
+``RunnableParallel`` lanza las tres llamadas a la API de OpenAI en paralelo con
+una sola llamada a ``.invoke()``, reduciendo la latencia total respecto a
+ejecutarlas secuencialmente.
+
+Requiere la variable de entorno ``OPENAI_API_KEY`` configurada (o asignada
+directamente en ``os.environ``).
+
+Ejecutar:
+    python paralelo.py
+"""
+
 import os
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate

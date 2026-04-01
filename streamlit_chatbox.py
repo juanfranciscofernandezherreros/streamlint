@@ -1,3 +1,21 @@
+"""
+streamlit_chatbox.py
+--------------------
+Aplicación principal de chatbot construida con Streamlit y LangChain.
+
+Características:
+- Interfaz de chat interactiva con streaming de respuestas en tiempo real.
+- Gestión de múltiples conversaciones con persistencia en archivos JSON dentro
+  de la carpeta ``sesiones/``.
+- Historial de chats recientes accesible desde la barra lateral.
+- Configuración de la API Key de OpenAI directamente desde la interfaz.
+- Cadena LCEL basada en ``ChatPromptTemplate`` + ``MessagesPlaceholder`` que
+  mantiene el contexto completo de la conversación en cada llamada al modelo.
+
+Uso:
+    streamlit run streamlit_chatbox.py
+"""
+
 import streamlit as st
 import json
 import os

@@ -1,3 +1,20 @@
+"""
+message_placeholders.py
+-----------------------
+Ejemplo de uso de ``MessagesPlaceholder`` para gestionar historial de conversación.
+
+``MessagesPlaceholder`` permite insertar dinámicamente una lista de mensajes
+(``HumanMessage``, ``AIMessage``, etc.) en un punto concreto del
+``ChatPromptTemplate``.  Esto es fundamental para mantener el contexto de la
+conversación sin hardcodear los mensajes previos en la plantilla.
+
+Este módulo simula un historial de dos turnos y añade una nueva pregunta del
+usuario, mostrando cómo el prompt queda ensamblado con todos los mensajes.
+
+Ejecutar:
+    python message_placeholders.py
+"""
+
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
