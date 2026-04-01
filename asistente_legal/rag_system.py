@@ -33,3 +33,29 @@ def initialize_rag_system():
         query_prompt=multi_query_prompt
     )
     prompt = PromptTemplate.from_template(config.RAG_TEMPLATE)
+
+    def format_docs(docs):
+        formatted = []
+        for i, doc in enumerate(docs,1):
+            header = f"[Fragmento {i}]  "
+            if doc.metada:
+                if'source' in doc.metadata:
+                    source = doc.metadata['source'].split("/")[-1] if '\\' in doc.metadata['source'] else doc.metadata['source']    
+                    header += f"({source})  "
+                if 'page' in doc.metadata:
+                    header += f"(Página {doc.metadata['page']})  "
+            content = doc.page_content.strip()
+            formatted.append(f"{header}\n{content}")
+        return "\n\n".join(formatted)   
+    rag_chain = ({
+        "context" : multi_query_retriever | format_docs,
+        "question" : RunnablePassthrough(),
+    }
+    | prompt
+    | llm_generation
+    | StrOutputParser())
+    return rag_chain, multi_query_retriever
+
+
+    
+
