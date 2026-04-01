@@ -1,111 +1,84 @@
-"""
-app.py
-------
-Aplicación principal del Asistente Legal de Contratos de Arrendamiento.
-
-Permite consultar el contenido de contratos de arrendamiento indexados en
-ChromaDB mediante un sistema RAG con MultiQueryRetriever y MMR.
-
-Uso:
-    streamlit run asistente_legal/app.py
-"""
-
-import os
-import sys
-import io
 import streamlit as st
+from rag_system import query_rag, get_retriever_info
 
-# Asegurar codificación UTF-8 para evitar errores en terminales Linux
-if sys.stdout.encoding != "utf-8":
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
-
-# Añadir el directorio actual al path para que los imports relativos funcionen
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from rag_system import initialize_rag_system
-
-# --- CONFIGURACIÓN DE PÁGINA ---
+# Configuración de la página
 st.set_page_config(
-    page_title="Asistente Legal - Contratos de Arrendamiento",
+    page_title="Sistema RAG - Asistente Legal",
     page_icon="⚖️",
     layout="wide"
 )
 
-# --- BARRA LATERAL ---
+# Título
+st.title("⚖️ Sistema RAG - Asistente Legal")
+st.divider()
+
+# Inicializar el historial de chat
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Sidebar simplificado
 with st.sidebar:
-    st.title("⚖️ Asistente Legal")
-    st.markdown("Consulta inteligente de contratos de arrendamiento.")
+    st.header("📋 Información del Sistema")
+    
+    # Información del retriever
+    retriever_info = get_retriever_info()
+    
+    st.markdown("**🔍 Retriever:**")
+    st.info(f"Tipo: {retriever_info['tipo']}")
+    
+    st.markdown("**🤖 Modelos:**")
+    st.info("Consultas: GPT-4o-mini\nRespuestas: GPT-4o")
+    
     st.divider()
+    
+    if st.button("🗑️ Limpiar Chat", type="secondary", use_container_width=True):
+        st.session_state.messages = []
+        st.rerun()
 
-    api_key = st.text_input(
-        "OpenAI API Key",
-        type="password",
-        placeholder="sk-...",
-        help="Introduce tu clave de API de OpenAI para activar el asistente."
-    )
+# Layout principal con columnas
+col1, col2 = st.columns([2, 1])
 
-    st.divider()
-    st.markdown(
-        "**Cómo funciona:**\n"
-        "- Recupera fragmentos relevantes de los contratos indexados\n"
-        "- Usa MultiQueryRetriever para ampliar la búsqueda\n"
-        "- Genera una respuesta fundamentada en los documentos"
-    )
+with col1:
+    st.markdown("### 💬 Chat")
+    
+    # Mostrar historial de mensajes
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
-# --- ÁREA PRINCIPAL ---
-st.title("⚖️ Asistente Legal de Contratos de Arrendamiento")
+with col2:
+    st.markdown("### 📄 Documentos Relevantes")
+    
+    # Mostrar documentos de la última consulta
+    if st.session_state.messages:
+        last_message = st.session_state.messages[-1]
+        if last_message["role"] == "assistant" and "docs" in last_message:
+            docs = last_message["docs"]
+            
+            if docs:
+                for doc in docs:
+                    with st.expander(f"📄 Fragmento {doc['fragmento']}", expanded=False):
+                        st.markdown(f"**Fuente:** {doc['fuente']}")
+                        st.markdown(f"**Página:** {doc['pagina']}")
+                        st.markdown("**Contenido:**")
+                        st.text(doc['contenido'])
+
+# Input del usuario
+if prompt := st.chat_input("Escribe tu consulta sobre contratos de arrendamiento..."):
+    # Añadir mensaje del usuario al historial
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    
+    # Generar respuesta
+    with st.spinner("🔍 Analizando..."):
+        response, docs = query_rag(prompt)
+        st.session_state.messages.append({"role": "assistant", "content": response, "docs": docs})
+    
+    # Recargar para mostrar los nuevos mensajes
+    st.rerun()
+
+# Footer
+st.divider()
 st.markdown(
-    "Haz preguntas sobre los contratos indexados: "
-    "arrendadores, arrendatarios, importes, fechas, condiciones, etc."
+    "<div style='text-align: center; color: #666;'>🏛️ Asistente Legal con MMR Retriever</div>", 
+    unsafe_allow_html=True
 )
-
-# Inicializar historial de mensajes
-if "mensajes" not in st.session_state:
-    st.session_state.mensajes = []
-
-# Mostrar historial
-for msg in st.session_state.mensajes:
-    with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
-
-# Lógica de consulta
-if api_key:
-    os.environ["OPENAI_API_KEY"] = api_key
-
-    try:
-        chain = initialize_rag_system()
-    except Exception as e:
-        st.error(f"Error al inicializar el sistema RAG: {e}")
-        st.stop()
-
-    pregunta = st.chat_input("Escribe tu consulta sobre los contratos...")
-
-    if pregunta:
-        # Mostrar pregunta del usuario
-        with st.chat_message("user"):
-            st.markdown(pregunta)
-        st.session_state.mensajes.append({"role": "user", "content": pregunta})
-
-        # Generar y mostrar respuesta con streaming
-        with st.chat_message("assistant"):
-            placeholder = st.empty()
-            respuesta = ""
-            try:
-                for chunk in chain.stream(pregunta):
-                    respuesta += chunk
-                    placeholder.markdown(respuesta + "▌")
-                placeholder.markdown(respuesta)
-            except Exception as e:
-                placeholder.error(f"Error al generar la respuesta: {e}")
-                respuesta = ""
-
-        if respuesta:
-            st.session_state.mensajes.append({"role": "assistant", "content": respuesta})
-
-    if st.session_state.mensajes:
-        if st.button("🗑️ Limpiar conversación", use_container_width=False):
-            st.session_state.mensajes = []
-            st.rerun()
-
-else:
-    st.warning("⚠️ Introduce tu OpenAI API Key en la barra lateral para empezar.")

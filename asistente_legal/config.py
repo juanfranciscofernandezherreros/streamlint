@@ -1,4 +1,4 @@
-from prompt import MULTI_QUERY_PROMPT, RAG_TEMPLATE
+from prompt import RAG_TEMPLATE, MULTI_QUERY_PROMPT
 
 EMBEDDING_MODEL = "text-embedding-3-large"
 CHROMA_DB_PATH = "/home/usuario/streamlint/asistente_legal/chroma_db"
