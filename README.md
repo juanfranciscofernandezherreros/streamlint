@@ -13,7 +13,7 @@ Este repositorio está reorganizado como una ruta progresiva para:
 3. Cargar documentos de múltiples fuentes.
 4. Crear embeddings, vector stores y retrievers.
 5. Construir aplicaciones completas en Streamlit.
-6. Implementar un caso real de **RAG legal**.
+6. Implementar un caso real de **RAG legal** (Retrieval-Augmented Generation).
 
 ---
 
@@ -204,6 +204,7 @@ streamlit run asistente_legal/app.py
 
 - La secuencia oficial de aprendizaje es **01 → 33**.
 - `asistente_legal/` es un proyecto aplicado independiente sobre la misma base tecnológica.
+- El archivo `22_embeding_language.py` conserva ese nombre por compatibilidad histórica del repositorio.
 - Algunos scripts tienen rutas absolutas locales en el código (ej. `/home/usuario/streamlint/...`); si ejecutas en otra máquina, ajusta esas rutas.
 - `chroma_db/` y `sesiones/` son datos de ejecución/persistencia del proyecto.
 
