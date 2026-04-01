@@ -1,10 +1,25 @@
-from prompt import RAG_TEMPLATE, MULTI_QUERY_PROMPT
+# config.py
+import os
 
+# Rutas
+BASE_DIR = "/home/usuario/streamlint"
+CONTRATOS_PATH = os.path.join(BASE_DIR, "contratos")
+CHROMA_DB_PATH = os.path.join(BASE_DIR, "chroma_db")
+
+# Modelos
 EMBEDDING_MODEL = "text-embedding-3-large"
-CHROMA_DB_PATH = "/home/usuario/streamlint/asistente_legal/chroma_db"
-QUERY_MODEL = "gpt-4o"
+QUERY_MODEL = "gpt-4o-mini"
 GENERATION_MODEL = "gpt-4o"
-SEARCH_TYPE = "mmr"
-MMR_DIVERSITY_LAMBDA = 0.5
-MMR_FETCH_K = 20
-SEARCH_K = 2
+
+# Prompt
+RAG_TEMPLATE = """
+Eres un asistente legal experto. Responde a la consulta utilizando exclusivamente el contexto proporcionado. 
+Si la información no está en los documentos, indícalo honestamente.
+
+Contexto:
+{context}
+
+Pregunta: {question}
+
+Respuesta detallada (cita la fuente y página):
+"""
