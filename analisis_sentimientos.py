@@ -1,3 +1,28 @@
+"""
+analisis_sentimientos.py
+------------------------
+Pipeline de análisis de sentimientos con procesamiento paralelo y en lote.
+
+Arquitectura de la cadena:
+
+1. **Preprocesador** (``RunnableLambda``): limpia el texto y lo trunca a 500
+   caracteres.
+2. **Análisis paralelo** (``RunnableParallel``):
+   - Rama ``resumen``: genera un resumen de una sola oración.
+   - Rama ``sentimiento_data``: analiza el sentimiento y devuelve un JSON con
+     ``sentimiento`` y ``razon``.
+3. **Fusión** (``RunnableLambda``): combina ambos resultados en un único
+   diccionario con las claves ``resumen``, ``sentimiento`` y ``razon``.
+
+El pipeline procesa una lista de reseñas de ejemplo mediante ``.batch()``,
+que ejecuta cada entrada de forma concurrente.
+
+Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
+
+Ejecutar:
+    python analisis_sentimientos.py
+"""
+
 from langchain_core.runnables import RunnableLambda, RunnableParallel
 from langchain_openai import ChatOpenAI
 import json
