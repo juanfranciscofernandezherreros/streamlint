@@ -24,6 +24,7 @@ Proyecto de aprendizaje y demostración que combina **LangChain**, **OpenAI** y 
 - ⚡ **Procesamiento paralelo** con `RunnableParallel` y ejecución en lote con `.batch()`.
 - 📊 **Salidas estructuradas** con modelos Pydantic para respuestas tipadas.
 - 📚 **Document Loaders**: web, PDF, directorios, YouTube, HTML, CSV, Selenium, Git y Google Drive.
+- 🔍 **Retrievers**: VectorStores con Chroma, retriever de similitud y MultiQueryRetriever.
 
 ---
 
@@ -64,13 +65,19 @@ streamlint/
 │   ├── 21_text_splitters_parte2.py              # RecursiveCharacterTextSplitter + resumen por chunks
 │   └── 22_embeding_language.py                  # OpenAIEmbeddings + similitud coseno
 │
-├── nivel_6_aplicaciones/                        ← Streamlit · Aplicaciones completas
-│   ├── 23_all_exercise.py                       # Chatbot básico con selector de modelo y personalidad
-│   └── 24_streamlit_chatbox.py                  # Chatbot avanzado con gestión de sesiones persistentes
+├── nivel_6_retrievers/                          ← Recuperación semántica con VectorStores
+│   ├── 23_vector_stores.py                      # Chroma: carga PDFs, crea chunks e indexa embeddings
+│   ├── 24_retriever_langchain.py                # Retriever de similitud con Chroma (k=2)
+│   └── 25_multi_query_retriever.py              # MultiQueryRetriever: 3 variaciones de la consulta
+│
+├── nivel_7_aplicaciones/                        ← Streamlit · Aplicaciones completas
+│   ├── 26_all_exercise.py                       # Chatbot básico con selector de modelo y personalidad
+│   └── 27_streamlit_chatbox.py                  # Chatbot avanzado con gestión de sesiones persistentes
 │
 ├── sesiones/                                    # Sesiones de chat guardadas en JSON
 ├── historial_chat.json                          # Historial de ejemplo
 ├── cambridge_english_first.pdf                  # PDF de prueba para los ejemplos de PyPDFLoader
+├── contratos/                                   # PDFs de contratos para los ejemplos de Retrievers
 ├── requirements.txt                             # Dependencias del proyecto
 └── README.md                                    # Este archivo
 ```
@@ -128,6 +135,13 @@ pip install -r requirements.txt
 > |---|---|
 > | `RecursiveCharacterTextSplitter` (`21_text_splitters_parte2.py`) | `langchain-text-splitters` |
 > | Similitud coseno con `OpenAIEmbeddings` (`22_embeding_language.py`) | `numpy` |
+>
+> **Dependencias adicionales** para el Nivel 6 (ya incluidas en `requirements.txt`):
+>
+> | Módulo | Paquete |
+> |---|---|
+> | `Chroma` (`23_vector_stores.py`, `24_retriever_langchain.py`, `25_multi_query_retriever.py`) | `langchain-community` + `chromadb` |
+> | `PyPDFDirectoryLoader` (`23_vector_stores.py`) | `pypdf` |
 
 ### 4. Configurar la API Key de OpenAI
 
@@ -194,12 +208,20 @@ Todos los módulos de consola se ejecutan con `python <ruta/archivo.py>`.
 | `nivel_5_text_splitters_y_embeddings/21_text_splitters_parte2.py` | `RecursiveCharacterTextSplitter` + resumen progresivo por chunks |
 | `nivel_5_text_splitters_y_embeddings/22_embeding_language.py` | `OpenAIEmbeddings` + similitud coseno entre textos |
 
-### Nivel 6 — Aplicaciones Streamlit
+### Nivel 6 — Retrievers (requiere API Key)
+
+| Archivo | Concepto principal |
+|---|---|
+| `nivel_6_retrievers/23_vector_stores.py` | `PyPDFDirectoryLoader` + `RecursiveCharacterTextSplitter` + `Chroma.from_documents()` |
+| `nivel_6_retrievers/24_retriever_langchain.py` | `vectorstore.as_retriever()` con `search_type="similarity"` y `k=2` |
+| `nivel_6_retrievers/25_multi_query_retriever.py` | `MultiQueryRetriever.from_llm()`: genera 3 variaciones de la consulta para mejorar la recuperación |
+
+### Nivel 7 — Aplicaciones Streamlit
 
 | Archivo | Descripción |
 |---|---|
-| `nivel_6_aplicaciones/23_all_exercise.py` | Chatbot con selector de modelo (`gpt-4o-mini`, `gpt-4.1-mini`, `gpt-4.1`), temperatura y personalidad; streaming activado |
-| `nivel_6_aplicaciones/24_streamlit_chatbox.py` | Chatbot avanzado «Chat Manager Pro»: múltiples conversaciones con persistencia JSON en `sesiones/`, carga y guardado automático |
+| `nivel_7_aplicaciones/26_all_exercise.py` | Chatbot con selector de modelo (`gpt-4o-mini`, `gpt-4.1-mini`, `gpt-4.1`), temperatura y personalidad; streaming activado |
+| `nivel_7_aplicaciones/27_streamlit_chatbox.py` | Chatbot avanzado «Chat Manager Pro»: múltiples conversaciones con persistencia JSON en `sesiones/`, carga y guardado automático |
 
 ### Conceptos de LangChain cubiertos
 
@@ -215,6 +237,8 @@ Todos los módulos de consola se ejecutan con `python <ruta/archivo.py>`.
 | **Loaders** | `WebBaseLoader`, `PyPDFLoader`, `DirectoryLoader`, `YoutubeLoader`, `UnstructuredHTMLLoader`, `CSVLoader`, `SeleniumURLLoader`, `GitLoader`, `GoogleDriveLoader` |
 | **Text Splitters** | `RecursiveCharacterTextSplitter` |
 | **Embeddings** | `OpenAIEmbeddings` |
+| **Vector Stores** | `Chroma` (`from_documents`, `as_retriever`, `similarity_search`) |
+| **Retrievers** | `vectorstore.as_retriever()`, `MultiQueryRetriever` |
 
 ---
 
@@ -223,7 +247,7 @@ Todos los módulos de consola se ejecutan con `python <ruta/archivo.py>`.
 ### Chatbot con gestión de sesiones (recomendado)
 
 ```bash
-streamlit run nivel_6_aplicaciones/24_streamlit_chatbox.py
+streamlit run nivel_7_aplicaciones/27_streamlit_chatbox.py
 ```
 
 La aplicación se abrirá en `http://localhost:8501`. Desde la barra lateral podrás:
@@ -234,12 +258,12 @@ La aplicación se abrirá en `http://localhost:8501`. Desde la barra lateral pod
 ### Chatbot básico con opciones
 
 ```bash
-streamlit run nivel_6_aplicaciones/23_all_exercise.py
+streamlit run nivel_7_aplicaciones/26_all_exercise.py
 ```
 
 Permite seleccionar modelo, temperatura (0.0–1.0) y personalidad del asistente desde la barra lateral.
 
-### Scripts de consola (Niveles 1–5)
+### Scripts de consola (Niveles 1–6)
 
 ```bash
 # Ejemplo nivel 1 (no requiere API Key):
@@ -247,6 +271,9 @@ python nivel_1_basico/01_prompt_templates.py
 
 # Ejemplo nivel 4:
 python nivel_4_document_loaders/12_read_pdf.py
+
+# Ejemplo nivel 6 (requiere API Key + Chroma):
+python nivel_6_retrievers/23_vector_stores.py
 ```
 
 ---
@@ -263,5 +290,6 @@ python nivel_4_document_loaders/12_read_pdf.py
 | Lectura de PDF | [pypdf](https://pypdf.readthedocs.io/) |
 | División de texto | [langchain-text-splitters](https://pypi.org/project/langchain-text-splitters/) |
 | Embeddings / álgebra lineal | [NumPy](https://numpy.org/) |
+| Vector Store | [Chroma](https://www.trychroma.com/) (`chromadb`) |
 | Variables de entorno | [python-dotenv](https://pypi.org/project/python-dotenv/) |
 | Lenguaje | Python 3.8+ (recomendado 3.12) |
