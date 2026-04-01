@@ -24,7 +24,7 @@ Proyecto de aprendizaje y demostración que combina **LangChain**, **OpenAI** y 
 - ⚡ **Procesamiento paralelo** con `RunnableParallel` y ejecución en lote con `.batch()`.
 - 📊 **Salidas estructuradas** con modelos Pydantic para respuestas tipadas.
 - 📚 **Document Loaders**: web, PDF, directorios, YouTube, HTML, CSV, Selenium, Git y Google Drive.
-- 🔍 **Retrievers**: VectorStores con Chroma, retriever de similitud y MultiQueryRetriever.
+- 🔍 **Retrievers**: VectorStores con Chroma, retriever de similitud, MultiQueryRetriever, ContextualCompressionRetriever, EnsembleRetriever, ParentDocumentRetriever, SelfQueryRetriever, TimeWeightedVectorStoreRetriever y técnicas avanzadas (MMR + Reranking).
 
 ---
 
@@ -68,11 +68,17 @@ streamlint/
 ├── nivel_6_retrievers/                          ← Recuperación semántica con VectorStores
 │   ├── 23_vector_stores.py                      # Chroma: carga PDFs, crea chunks e indexa embeddings
 │   ├── 24_retriever_langchain.py                # Retriever de similitud con Chroma (k=2)
-│   └── 25_multi_query_retriever.py              # MultiQueryRetriever: 3 variaciones de la consulta
+│   ├── 25_multi_query_retriever.py              # MultiQueryRetriever: 3 variaciones de la consulta
+│   ├── 26_contextual_compression_retriever.py   # ContextualCompressionRetriever + pipeline avanzado
+│   ├── 27_ensemble_retriever.py                 # EnsembleRetriever: BM25 + Vector Search (RRF)
+│   ├── 28_parent_document_retriever.py          # ParentDocumentRetriever: chunks pequeños, contexto grande
+│   ├── 29_self_query_retriever.py               # SelfQueryRetriever: filtros estructurados desde lenguaje natural
+│   ├── 30_time_weighted_retriever.py            # TimeWeightedVectorStoreRetriever: memoria que desvanece
+│   └── 31_advanced_retrievers.py               # MMR y Reranking: técnicas avanzadas de recuperación
 │
 ├── nivel_7_aplicaciones/                        ← Streamlit · Aplicaciones completas
-│   ├── 26_all_exercise.py                       # Chatbot básico con selector de modelo y personalidad
-│   └── 27_streamlit_chatbox.py                  # Chatbot avanzado con gestión de sesiones persistentes
+│   ├── 32_all_exercise.py                       # Chatbot básico con selector de modelo y personalidad
+│   └── 33_streamlit_chatbox.py                  # Chatbot avanzado con gestión de sesiones persistentes
 │
 ├── sesiones/                                    # Sesiones de chat guardadas en JSON
 ├── historial_chat.json                          # Historial de ejemplo
@@ -140,8 +146,11 @@ pip install -r requirements.txt
 >
 > | Módulo | Paquete |
 > |---|---|
-> | `Chroma` (`23_vector_stores.py`, `24_retriever_langchain.py`, `25_multi_query_retriever.py`) | `langchain-community` + `chromadb` |
-> | `PyPDFDirectoryLoader` (`23_vector_stores.py`) | `pypdf` |
+> | `Chroma` (`23_vector_stores.py`, `24_retriever_langchain.py`, `25_multi_query_retriever.py`, `26_contextual_compression_retriever.py`, `28_parent_document_retriever.py`, `30_time_weighted_retriever.py`, `31_advanced_retrievers.py`) | `langchain-community` + `chromadb` |
+> | `PyPDFDirectoryLoader` (`23_vector_stores.py`, `27_ensemble_retriever.py`, `28_parent_document_retriever.py`) | `pypdf` |
+> | `BM25Retriever` (`27_ensemble_retriever.py`) | `rank_bm25` |
+> | `FAISS` (`27_ensemble_retriever.py`) | `faiss-cpu` |
+> | `EmbeddingsRedundantFilter` (`26_contextual_compression_retriever.py`) | `langchain-community` |
 
 ### 4. Configurar la API Key de OpenAI
 
@@ -215,13 +224,19 @@ Todos los módulos de consola se ejecutan con `python <ruta/archivo.py>`.
 | `nivel_6_retrievers/23_vector_stores.py` | `PyPDFDirectoryLoader` + `RecursiveCharacterTextSplitter` + `Chroma.from_documents()` |
 | `nivel_6_retrievers/24_retriever_langchain.py` | `vectorstore.as_retriever()` con `search_type="similarity"` y `k=2` |
 | `nivel_6_retrievers/25_multi_query_retriever.py` | `MultiQueryRetriever.from_llm()`: genera 3 variaciones de la consulta para mejorar la recuperación |
+| `nivel_6_retrievers/26_contextual_compression_retriever.py` | `ContextualCompressionRetriever` + `LLMChainExtractor` + pipeline con filtro de redundancia |
+| `nivel_6_retrievers/27_ensemble_retriever.py` | `EnsembleRetriever`: combina BM25 y vector search con Fusión de Ranking Recíproco |
+| `nivel_6_retrievers/28_parent_document_retriever.py` | `ParentDocumentRetriever`: embeddings en chunks pequeños, devuelve documentos padre con contexto completo |
+| `nivel_6_retrievers/29_self_query_retriever.py` | `SelfQueryRetriever`: el LLM construye filtros estructurados automáticamente desde lenguaje natural |
+| `nivel_6_retrievers/30_time_weighted_retriever.py` | `TimeWeightedVectorStoreRetriever`: prioriza documentos recientes con tasa de decaimiento configurable |
+| `nivel_6_retrievers/31_advanced_retrievers.py` | MMR (`search_type="mmr"`) para diversidad y Reranking con Cohere como técnicas avanzadas |
 
 ### Nivel 7 — Aplicaciones Streamlit
 
 | Archivo | Descripción |
 |---|---|
-| `nivel_7_aplicaciones/26_all_exercise.py` | Chatbot con selector de modelo (`gpt-4o-mini`, `gpt-4.1-mini`, `gpt-4.1`), temperatura y personalidad; streaming activado |
-| `nivel_7_aplicaciones/27_streamlit_chatbox.py` | Chatbot avanzado «Chat Manager Pro»: múltiples conversaciones con persistencia JSON en `sesiones/`, carga y guardado automático |
+| `nivel_7_aplicaciones/32_all_exercise.py` | Chatbot con selector de modelo (`gpt-4o-mini`, `gpt-4.1-mini`, `gpt-4.1`), temperatura y personalidad; streaming activado |
+| `nivel_7_aplicaciones/33_streamlit_chatbox.py` | Chatbot avanzado «Chat Manager Pro»: múltiples conversaciones con persistencia JSON en `sesiones/`, carga y guardado automático |
 
 ### Conceptos de LangChain cubiertos
 
@@ -238,7 +253,7 @@ Todos los módulos de consola se ejecutan con `python <ruta/archivo.py>`.
 | **Text Splitters** | `RecursiveCharacterTextSplitter` |
 | **Embeddings** | `OpenAIEmbeddings` |
 | **Vector Stores** | `Chroma` (`from_documents`, `as_retriever`, `similarity_search`) |
-| **Retrievers** | `vectorstore.as_retriever()`, `MultiQueryRetriever` |
+| **Retrievers** | `vectorstore.as_retriever()`, `MultiQueryRetriever`, `ContextualCompressionRetriever`, `EnsembleRetriever`, `ParentDocumentRetriever`, `SelfQueryRetriever`, `TimeWeightedVectorStoreRetriever` |
 
 ---
 
@@ -247,7 +262,7 @@ Todos los módulos de consola se ejecutan con `python <ruta/archivo.py>`.
 ### Chatbot con gestión de sesiones (recomendado)
 
 ```bash
-streamlit run nivel_7_aplicaciones/27_streamlit_chatbox.py
+streamlit run nivel_7_aplicaciones/33_streamlit_chatbox.py
 ```
 
 La aplicación se abrirá en `http://localhost:8501`. Desde la barra lateral podrás:
@@ -258,7 +273,7 @@ La aplicación se abrirá en `http://localhost:8501`. Desde la barra lateral pod
 ### Chatbot básico con opciones
 
 ```bash
-streamlit run nivel_7_aplicaciones/26_all_exercise.py
+streamlit run nivel_7_aplicaciones/32_all_exercise.py
 ```
 
 Permite seleccionar modelo, temperatura (0.0–1.0) y personalidad del asistente desde la barra lateral.
