@@ -11,7 +11,7 @@ Este ejemplo define una plantilla para solicitar eslóganes de marketing y la
 rellena con el producto "café orgánico".
 
 Ejecutar:
-    python prompt_templates.py
+    python nivel_1_basico/01_prompt_templates.py
 """
 
 from langchain_core.prompts import PromptTemplate

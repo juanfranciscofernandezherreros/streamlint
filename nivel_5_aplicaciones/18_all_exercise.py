@@ -1,6 +1,6 @@
 """
-all_exercise.py
----------------
+18_all_exercise.py
+------------------
 Chatbot básico con opciones de configuración, construido con Streamlit y LangChain.
 
 Permite al usuario seleccionar desde la barra lateral:
@@ -14,7 +14,7 @@ sesión activa y se incluye en cada llamada al modelo (últimos 10 mensajes).
 Las respuestas se renderizan con streaming para mejorar la experiencia de usuario.
 
 Uso:
-    streamlit run all_exercise.py
+    streamlit run nivel_5_aplicaciones/18_all_exercise.py
 """
 
 import streamlit as st

@@ -18,7 +18,7 @@ Requiere la variable de entorno ``OPENAI_API_KEY`` configurada (o asignada
 directamente en ``os.environ``).
 
 Ejecutar:
-    python paralelo.py
+    python nivel_3_avanzado/08_paralelo.py
 """
 
 import os

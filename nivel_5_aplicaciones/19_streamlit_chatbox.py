@@ -1,6 +1,6 @@
 """
-streamlit_chatbox.py
---------------------
+19_streamlit_chatbox.py
+-----------------------
 Aplicación principal de chatbot construida con Streamlit y LangChain.
 
 Características:
@@ -13,7 +13,7 @@ Características:
   mantiene el contexto completo de la conversación en cada llamada al modelo.
 
 Uso:
-    streamlit run streamlit_chatbox.py
+    streamlit run nivel_5_aplicaciones/19_streamlit_chatbox.py
 """
 
 import streamlit as st
@@ -21,6 +21,7 @@ import json
 import os
 import sys
 import io
+from pathlib import Path
 from datetime import datetime
 
 # --- LANGCHAIN IMPORTS ---
@@ -34,11 +35,23 @@ if sys.stdout.encoding != 'utf-8':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # Carpeta donde se guardarán las sesiones JSON
-CHAT_DIR = "sesiones"
+CHAT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sesiones")
 if not os.path.exists(CHAT_DIR):
     os.makedirs(CHAT_DIR)
 
 # --- FUNCIONES DE PERSISTENCIA ---
+
+def _ruta_segura(nombre_archivo: str) -> Path:
+    """Devuelve la ruta absoluta del archivo dentro de CHAT_DIR.
+
+    Usa pathlib para resolver cualquier componente '..' y verifica que la
+    ruta resultante esté dentro de CHAT_DIR, evitando ataques de path traversal.
+    Lanza ValueError si la ruta resultante escapa del directorio permitido.
+    """
+    base = Path(CHAT_DIR).resolve()
+    ruta = (base / Path(nombre_archivo).name).resolve()
+    ruta.relative_to(base)  # lanza ValueError si ruta no está dentro de base
+    return ruta
 
 def obtener_lista_chats():
     """Lista los nombres de archivos .json en la carpeta de sesiones."""
@@ -50,7 +63,7 @@ def obtener_lista_chats():
 
 def guardar_chat(nombre_archivo, mensajes):
     """Guarda la lista de mensajes en un archivo JSON."""
-    ruta = os.path.join(CHAT_DIR, nombre_archivo)
+    ruta = _ruta_segura(nombre_archivo)
     datos = []
     for m in mensajes:
         if isinstance(m, SystemMessage): tipo = "system"
@@ -63,7 +76,7 @@ def guardar_chat(nombre_archivo, mensajes):
 
 def cargar_chat(nombre_archivo):
     """Carga mensajes de un archivo específico convirtiéndolos a objetos LangChain."""
-    ruta = os.path.join(CHAT_DIR, nombre_archivo)
+    ruta = _ruta_segura(nombre_archivo)
     if not os.path.exists(ruta):
         return [SystemMessage(content="Eres un asistente amigable.")]
     

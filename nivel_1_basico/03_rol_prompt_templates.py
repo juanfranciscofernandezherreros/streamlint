@@ -1,6 +1,6 @@
 """
-rol_prompt_tempaltes.py
------------------------
+03_rol_prompt_templates.py
+--------------------------
 Ejemplo de plantillas de prompt con rol dinámico usando LangChain.
 
 Combina ``SystemMessagePromptTemplate`` y ``HumanMessagePromptTemplate``
@@ -14,7 +14,7 @@ especialización configurables en tiempo de ejecución mediante las variables:
 - ``pregunta``: texto concreto del usuario.
 
 Ejecutar:
-    python rol_prompt_tempaltes.py
+    python nivel_1_basico/03_rol_prompt_templates.py
 """
 
 from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate

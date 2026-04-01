@@ -20,7 +20,7 @@ que ejecuta cada entrada de forma concurrente.
 Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
 
 Ejecutar:
-    python analisis_sentimientos.py
+    python nivel_3_avanzado/07_analisis_sentimientos.py
 """
 
 from langchain_core.runnables import RunnableLambda, RunnableParallel
