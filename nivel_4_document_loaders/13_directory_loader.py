@@ -1,5 +1,5 @@
 """
-12_directory_loader.py
+13_directory_loader.py
 ----------------------
 Ejemplo de carga masiva de archivos con ``DirectoryLoader`` de LangChain.
 
@@ -14,7 +14,7 @@ Opciones destacadas:
 - ``use_multithreading``: carga archivos en paralelo para mayor velocidad.
 
 Ejecutar:
-    python nivel_4_document_loaders/12_directory_loader.py
+    python nivel_4_document_loaders/13_directory_loader.py
 """
 
 import os

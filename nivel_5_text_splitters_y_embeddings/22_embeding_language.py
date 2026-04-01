@@ -1,3 +1,17 @@
+"""
+22_embeding_language.py
+-----------------------
+Ejemplo de embeddings semánticos con ``OpenAIEmbeddings`` y similitud coseno.
+
+Genera vectores de embeddings para dos frases y calcula su similitud coseno
+con NumPy para cuantificar la cercanía semántica entre ambos textos.
+
+Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
+
+Ejecutar:
+    python nivel_5_text_splitters_y_embeddings/22_embeding_language.py
+"""
+
 from langchain_openai import OpenAIEmbeddings
 import numpy as np
 

@@ -1,5 +1,5 @@
 """
-paralelo_batch.py
+10_paralelo_batch.py
 -----------------
 Ejemplo de procesamiento en lote y paralelo con ``RunnableParallel`` y LangChain.
 
@@ -14,7 +14,7 @@ Requiere la variable de entorno ``OPENAI_API_KEY`` configurada (o asignada
 directamente en ``os.environ``).
 
 Ejecutar:
-    python nivel_3_avanzado/09_paralelo_batch.py
+    python nivel_3_avanzado/10_paralelo_batch.py
 """
 
 import os

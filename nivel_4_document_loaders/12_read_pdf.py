@@ -1,5 +1,5 @@
 """
-11_read_pdf.py
+12_read_pdf.py
 --------------
 Ejemplo de lectura de archivos PDF con ``PyPDFLoader`` de LangChain.
 
@@ -12,7 +12,7 @@ Incluye estadísticas por página (palabras, caracteres) y búsqueda de páginas
 que contengan una palabra clave específica.
 
 Ejecutar:
-    python nivel_4_document_loaders/11_read_pdf.py
+    python nivel_4_document_loaders/12_read_pdf.py
 """
 
 import os

@@ -1,3 +1,18 @@
+"""
+07_output_parser_parte2.py
+--------------------------
+Ejemplo de salida estructurada con Pydantic y ``with_structured_output()``.
+
+Define un modelo Pydantic con dos campos (resumen y sentimiento), vincula
+el LLM a ese esquema y analiza un texto de prueba obteniendo una respuesta
+tipada en formato JSON.
+
+Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
+
+Ejecutar:
+    python nivel_2_intermedio/07_output_parser_parte2.py
+"""
+
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 
