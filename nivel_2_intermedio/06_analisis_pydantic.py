@@ -15,7 +15,7 @@ necesidad de parseo manual.
 Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
 
 Ejecutar:
-    python analisis_pydantic.py
+    python nivel_2_intermedio/06_analisis_pydantic.py
 """
 
 from typing import List

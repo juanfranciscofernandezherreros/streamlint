@@ -8,9 +8,8 @@ Ejemplo de lectura de archivos PDF con ``PyPDFLoader`` de LangChain.
 - ``page_content``: texto extraído de la página.
 - ``metadata``: información como el número de página y la ruta del archivo.
 
-El ejemplo usa el archivo ``cambridge_english_first.pdf`` incluido en el
-repositorio e imprime los primeros 200 caracteres y los metadatos de cada
-página.
+Incluye estadísticas por página (palabras, caracteres) y búsqueda de páginas
+que contengan una palabra clave específica.
 
 Ejecutar:
     python nivel_4_document_loaders/11_read_pdf.py
@@ -19,16 +18,29 @@ Ejecutar:
 import os
 from langchain_community.document_loaders import PyPDFLoader
 
-ruta_pdf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "cambridge_english_first.pdf")
+ruta_pdf = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "cambridge_english_first.pdf"
+)
 
 loader = PyPDFLoader(ruta_pdf)
-documents = loader.load()
+pages = loader.load_and_split()
 
-for i, doc in enumerate(documents):
-    print(f"--- Página {i + 1} ---")
-    print("Texto:")
-    print(doc.page_content[:200])  # solo primeros 200 caracteres
+print(f"Total de páginas: {len(pages)}")
 
-    print("\nMetadatos:")
-    print(doc.metadata)
-    print("\n")
+# Analizar contenido de las primeras 3 páginas
+for i, page in enumerate(pages[:3]):
+    print(f"\n=== PÁGINA {i + 1} ===")
+    print(f"Número de página: {page.metadata['page']}")
+    print(f"Archivo fuente: {page.metadata['source']}")
+    print(f"Contenido (primeros 200 chars): {page.page_content[:200]}...")
+
+    words = len(page.page_content.split())
+    chars = len(page.page_content)
+    print(f"Palabras: {words}, Caracteres: {chars}")
+
+# Buscar páginas con contenido específico
+keyword = "english"
+relevant_pages = [
+    page for page in pages if keyword.lower() in page.page_content.lower()
+]
+print(f"\nPáginas que mencionan '{keyword}': {len(relevant_pages)}")

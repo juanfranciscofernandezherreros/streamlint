@@ -11,7 +11,7 @@ texto libre.
 Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
 
 Ejecutar:
-    python output_parser2.py
+    python nivel_2_intermedio/05_output_parser.py
 """
 
 from pydantic import BaseModel, Field
