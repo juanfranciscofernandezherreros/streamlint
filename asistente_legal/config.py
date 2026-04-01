@@ -1,0 +1,9 @@
+EMBEDDING_MODEL = "text-embedding-3-large"
+CHROMA_DB_PATH = "path/to/chroma/db" 
+QUERY_MODEL = "gpt-4o"
+GENERATION_MODEL = "gpt-4o"
+SEARCH_TYPE = "mmr"
+MMR_DIVERISTY_LAMBDA = 0.5
+MMR_FETCH_K = 20
+SEARCH_K = 2
+MULTI_QUERY_PROMPT=
