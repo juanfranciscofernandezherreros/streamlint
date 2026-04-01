@@ -116,11 +116,18 @@ pip install -r requirements.txt
 >
 > | Loader | Paquete a instalar |
 > |---|---|
-> | `DirectoryLoader` + `UnstructuredHTMLLoader` | `pip install unstructured` |
-> | `YoutubeLoader` | `pip install youtube-transcript-api` |
-> | `SeleniumURLLoader` | `pip install selenium` + ChromeDriver en el PATH |
-> | `GitLoader` | `pip install gitpython` |
+> | `DirectoryLoader` (`13_directory_loader.py`) + `UnstructuredHTMLLoader` (`15_unstructured_html_loader.py`) | `pip install unstructured` |
+> | `YoutubeLoader` (`14_youtube_loader.py`) | `pip install youtube-transcript-api` |
+> | `SeleniumURLLoader` (`17_selenium_url_loader.py`) | `pip install selenium` + ChromeDriver en el PATH |
+> | `GitLoader` (`18_git_loader.py`) | `pip install gitpython` |
 > | `GoogleDriveLoader` (`19_google_drive.py`) | `pip install langchain-google-community google-auth-oauthlib google-api-python-client` |
+>
+> **Dependencias adicionales** para el Nivel 5 (ya incluidas en `requirements.txt`):
+>
+> | Módulo | Paquete |
+> |---|---|
+> | `RecursiveCharacterTextSplitter` (`21_text_splitters_parte2.py`) | `langchain-text-splitters` |
+> | Similitud coseno con `OpenAIEmbeddings` (`22_embeding_language.py`) | `numpy` |
 
 ### 4. Configurar la API Key de OpenAI
 
@@ -254,5 +261,7 @@ python nivel_4_document_loaders/12_read_pdf.py
 | Validación de datos | [Pydantic v2](https://docs.pydantic.dev/) |
 | Parseo de HTML | [BeautifulSoup4](https://www.crummy.com/software/BeautifulSoup/) |
 | Lectura de PDF | [pypdf](https://pypdf.readthedocs.io/) |
+| División de texto | [langchain-text-splitters](https://pypi.org/project/langchain-text-splitters/) |
+| Embeddings / álgebra lineal | [NumPy](https://numpy.org/) |
 | Variables de entorno | [python-dotenv](https://pypi.org/project/python-dotenv/) |
 | Lenguaje | Python 3.8+ (recomendado 3.12) |
