@@ -1,9 +1,10 @@
+from prompt import MULTI_QUERY_PROMPT, RAG_TEMPLATE
+
 EMBEDDING_MODEL = "text-embedding-3-large"
-CHROMA_DB_PATH = "path/to/chroma/db" 
+CHROMA_DB_PATH = "/home/usuario/streamlint/asistente_legal/chroma_db"
 QUERY_MODEL = "gpt-4o"
 GENERATION_MODEL = "gpt-4o"
 SEARCH_TYPE = "mmr"
-MMR_DIVERISTY_LAMBDA = 0.5
+MMR_DIVERSITY_LAMBDA = 0.5
 MMR_FETCH_K = 20
 SEARCH_K = 2
-MULTI_QUERY_PROMPT=
