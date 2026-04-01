@@ -1,6 +1,6 @@
 """
-streamlit_chatbox.py
---------------------
+14_streamlit_chatbox.py
+-----------------------
 Aplicación principal de chatbot construida con Streamlit y LangChain.
 
 Características:
@@ -13,7 +13,7 @@ Características:
   mantiene el contexto completo de la conversación en cada llamada al modelo.
 
 Uso:
-    streamlit run streamlit_chatbox.py
+    streamlit run nivel_5_aplicaciones/14_streamlit_chatbox.py
 """
 
 import streamlit as st
@@ -34,7 +34,7 @@ if sys.stdout.encoding != 'utf-8':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # Carpeta donde se guardarán las sesiones JSON
-CHAT_DIR = "sesiones"
+CHAT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sesiones")
 if not os.path.exists(CHAT_DIR):
     os.makedirs(CHAT_DIR)
 

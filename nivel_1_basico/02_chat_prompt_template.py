@@ -1,6 +1,6 @@
 """
-chat_prompt_template.py
------------------------
+02_chat_prompt_template.py
+--------------------------
 Ejemplo básico de ``ChatPromptTemplate`` con LangChain.
 
 Muestra cómo crear una plantilla de chat con un mensaje de sistema fijo y un
@@ -9,7 +9,7 @@ invocar ``format_messages()`` se obtiene una lista de objetos de mensaje
 (``SystemMessage``, ``HumanMessage``) listos para enviar a un LLM.
 
 Ejecutar:
-    python chat_prompt_template.py
+    python nivel_1_basico/02_chat_prompt_template.py
 """
 
 from langchain_core.prompts import ChatPromptTemplate

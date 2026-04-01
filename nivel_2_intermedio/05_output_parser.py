@@ -1,6 +1,6 @@
 """
-output_parser2.py
------------------
+05_output_parser.py
+-------------------
 Ejemplo básico de salida estructurada con Pydantic y LangChain.
 
 Define un modelo Pydantic (``AnalisisTexto``) con dos campos tipados —

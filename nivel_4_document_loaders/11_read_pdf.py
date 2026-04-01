@@ -1,6 +1,6 @@
 """
-read_fiel.py
-------------
+11_read_pdf.py
+--------------
 Ejemplo de lectura de archivos PDF con ``PyPDFLoader`` de LangChain.
 
 ``PyPDFLoader`` divide el PDF en páginas y devuelve una lista de objetos
@@ -13,12 +13,13 @@ repositorio e imprime los primeros 200 caracteres y los metadatos de cada
 página.
 
 Ejecutar:
-    python read_fiel.py
+    python nivel_4_document_loaders/11_read_pdf.py
 """
 
+import os
 from langchain_community.document_loaders import PyPDFLoader
 
-ruta_pdf = "cambridge_english_first.pdf"
+ruta_pdf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "cambridge_english_first.pdf")
 
 loader = PyPDFLoader(ruta_pdf)
 documents = loader.load()
