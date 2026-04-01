@@ -1,5 +1,5 @@
 """
-10_read_from_website.py
+11_read_from_website.py
 -----------------------
 Ejemplo de carga de contenido web con ``WebBaseLoader`` de LangChain.
 
@@ -11,7 +11,7 @@ Incluye un ejemplo básico (una URL) y uno avanzado (múltiples URLs con filtrad
 de elementos HTML mediante BeautifulSoup).
 
 Ejecutar:
-    python nivel_4_document_loaders/10_read_from_website.py
+    python nivel_4_document_loaders/11_read_from_website.py
 """
 
 import bs4

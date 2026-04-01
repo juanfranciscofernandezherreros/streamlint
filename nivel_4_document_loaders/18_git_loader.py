@@ -1,5 +1,5 @@
 """
-17_git_loader.py
+18_git_loader.py
 ----------------
 Ejemplo de carga de código fuente desde un repositorio Git con ``GitLoader``.
 
@@ -18,7 +18,7 @@ Dependencia adicional:
     pip install gitpython
 
 Ejecutar:
-    python nivel_4_document_loaders/17_git_loader.py
+    python nivel_4_document_loaders/18_git_loader.py
 """
 
 import os

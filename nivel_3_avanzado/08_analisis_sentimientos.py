@@ -1,5 +1,5 @@
 """
-analisis_sentimientos.py
+08_analisis_sentimientos.py
 ------------------------
 Pipeline de análisis de sentimientos con procesamiento paralelo y en lote.
 
@@ -20,7 +20,7 @@ que ejecuta cada entrada de forma concurrente.
 Requiere la variable de entorno ``OPENAI_API_KEY`` configurada.
 
 Ejecutar:
-    python nivel_3_avanzado/07_analisis_sentimientos.py
+    python nivel_3_avanzado/08_analisis_sentimientos.py
 """
 
 from langchain_core.runnables import RunnableLambda, RunnableParallel
@@ -44,7 +44,7 @@ def generate_summary(text):
     response = llm.invoke(prompt)
     return response.content
 
-summary_brach = RunnableLambda(generate_summary)
+summary_branch = RunnableLambda(generate_summary)
 
 # Análisis de sentimiento con formato JSON
 def analyze_sentiment(text):
@@ -75,7 +75,7 @@ def merge_results(data):
 merger = RunnableLambda(merge_results)
 
 parallel_analysis = RunnableParallel({
-    "resumen": summary_brach,
+    "resumen": summary_branch,
     "sentimiento_data": sentiment_branch
 })
 

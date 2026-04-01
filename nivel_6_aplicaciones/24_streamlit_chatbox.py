@@ -1,5 +1,5 @@
 """
-19_streamlit_chatbox.py
+24_streamlit_chatbox.py
 -----------------------
 Aplicación principal de chatbot construida con Streamlit y LangChain.
 
@@ -13,7 +13,7 @@ Características:
   mantiene el contexto completo de la conversación en cada llamada al modelo.
 
 Uso:
-    streamlit run nivel_5_aplicaciones/19_streamlit_chatbox.py
+    streamlit run nivel_6_aplicaciones/24_streamlit_chatbox.py
 """
 
 import streamlit as st

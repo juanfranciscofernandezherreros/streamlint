@@ -1,5 +1,5 @@
 """
-16_selenium_url_loader.py
+17_selenium_url_loader.py
 -------------------------
 Ejemplo de carga de páginas con JavaScript con ``SeleniumURLLoader``.
 
@@ -16,7 +16,7 @@ Instalación:
     pip install selenium
 
 Ejecutar:
-    python nivel_4_document_loaders/16_selenium_url_loader.py
+    python nivel_4_document_loaders/17_selenium_url_loader.py
 """
 
 from langchain_community.document_loaders import SeleniumURLLoader
