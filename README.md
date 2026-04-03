@@ -78,7 +78,8 @@ streamlint/
 │
 ├── nivel_8_aplicaciones/                    # ⭐⭐⭐⭐⭐ Dificultad 8
 │   ├── 34_all_exercise.py
-│   └── 35_streamlit_chatbox.py
+│   ├── 35_streamlit_chatbox.py
+│   └── 40_streamlit_quiz_exam.py
 │
 ├── nivel_9_proyectos_integradores/          # ⭐⭐⭐⭐⭐ Dificultad 9
 │   ├── asistente_legal/
@@ -110,7 +111,7 @@ streamlint/
 
 ---
 
-## 🧭 Ruta de aprendizaje completa (01 → 39 + proyectos)
+## 🧭 Ruta de aprendizaje completa (01 → 40 + proyectos)
 
 ### Nivel 1 — Básico (01–04): Prompts y plantillas
 
@@ -143,10 +144,11 @@ Vector stores, multi-query, compresión contextual, ensemble, parent document, s
 - `36_langgraph_condicional.py` — Edges condicionales avanzados: clasificación de sentimiento con routing a tres ramas especializadas.
 - `37_langgraph_checkpointer.py` — Persistencia de estado entre turnos con `MemorySaver`; conversación multi-turno sin gestionar el historial manualmente.
 
-### Nivel 8 — Aplicaciones (34–35): Apps con Streamlit
+### Nivel 8 — Aplicaciones (34–35, 40): Apps con Streamlit
 
 - `34_all_exercise.py` — Aplicación que integra todos los ejercicios del curso.
 - `35_streamlit_chatbox.py` — Chatbot completo con interfaz Streamlit.
+- `40_streamlit_quiz_exam.py` — Examen tipo test con radio buttons, puntuación y revisión de respuestas.
 
 ### Nivel 9 — Proyectos integradores: Sistemas completos
 
@@ -246,11 +248,12 @@ python nivel_7_langgraph/36_langgraph_condicional.py
 python nivel_7_langgraph/37_langgraph_checkpointer.py
 ```
 
-### Apps Streamlit del curso (34–35)
+### Apps Streamlit del curso (34–35, 40)
 
 ```bash
 streamlit run nivel_8_aplicaciones/34_all_exercise.py
 streamlit run nivel_8_aplicaciones/35_streamlit_chatbox.py
+streamlit run nivel_8_aplicaciones/40_streamlit_quiz_exam.py
 ```
 
 ### Proyecto RAG legal
@@ -289,7 +292,7 @@ python nivel_10_memoria_y_evaluacion/39_evaluacion_llm.py
 
 ## 📌 Notas de organización importantes
 
-- La secuencia oficial de aprendizaje es **01 → 39**, seguida de los proyectos integradores.
+- La secuencia oficial de aprendizaje es **01 → 40**, seguida de los proyectos integradores.
 - Los niveles 1–6 cubren fundamentos de LangChain puro.
 - El nivel 7 introduce **LangGraph** (grafos de estado, workflows y checkpointers).
 - El nivel 8 agrupa las aplicaciones completas con **Streamlit**.
