@@ -1,9 +1,12 @@
 from langgraph.graph import StateGraph, START, END
 from langchain_openai import ChatOpenAI
-from typing import TypedDict, List
+from typing import TypedDict, List, TYPE_CHECKING
 import os
 import sys
 import openai
+
+if TYPE_CHECKING:
+    from langgraph.graph.state import CompiledStateGraph
 
 # Configuración
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
@@ -265,7 +268,7 @@ def transcribe_media(file_path: str) -> str:
         return transcript
 
     except openai.AuthenticationError:
-        print("❌ Error de autenticación: comprueba tu OPENAI_API_KEY")
+        print("❌ Error de autenticación: asegúrate de que OPENAI_API_KEY esté configurada en el entorno")
         return ""
     except FileNotFoundError:
         print(f"❌ Archivo no encontrado: {file_path}")
@@ -332,7 +335,7 @@ def load_input(file_path: str) -> str:
         )
 
 
-def process_meeting_notes(notes: str, app) -> State:
+def process_meeting_notes(notes: str, app: "CompiledStateGraph") -> State:
     """Procesa una nota de reunión a través del workflow completo.
 
     Args:
@@ -445,7 +448,6 @@ if __name__ == "__main__":
     notes = load_input(file_path)
 
     if not notes:
-        print("❌ No se pudo obtener texto del archivo.")
         raise SystemExit(1)
 
     result = process_meeting_notes(notes, app)
