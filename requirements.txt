@@ -2,6 +2,8 @@
 langchain
 langchain-openai
 langchain-community
+langgraph                     # StateGraph workflows (32_primer_programa_langgraph.py, 33_procesador_reuniones.py)
+openai                        # Whisper transcription API (33_procesador_reuniones.py)
 streamlit
 python-dotenv
 
