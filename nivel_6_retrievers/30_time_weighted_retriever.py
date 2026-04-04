@@ -1,15 +1,12 @@
-from langchain_community.vectorstores import Chroma
+from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import OpenAIEmbeddings
 from langchain.retrievers import TimeWeightedVectorStoreRetriever
 from langchain.schema import Document
 from datetime import datetime, timedelta
 
-# 1. Crear un vector store vacío para el retriever con memoria temporal
+# 1. Crear un vector store en memoria para el retriever con memoria temporal
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
-vectorstore = Chroma(
-    collection_name="time_weighted_retriever",
-    embedding_function=embeddings
-)
+vectorstore = InMemoryVectorStore(embedding=embeddings)
 
 # 2. Configurar el TimeWeightedVectorStoreRetriever
 # decay_rate: qué tan rápido "olvida" documentos antiguos (0=nunca olvida, 1=olvida inmediatamente)

@@ -4,7 +4,7 @@ import os
 # Rutas
 BASE_DIR = "/home/usuario/streamlint"
 CONTRATOS_PATH = os.path.join(BASE_DIR, "contratos")
-CHROMA_DB_PATH = os.path.join(BASE_DIR, "chroma_db")
+FAISS_DB_PATH = os.path.join(BASE_DIR, "faiss_db")
 
 # Modelos
 EMBEDDING_MODEL = "text-embedding-3-large"

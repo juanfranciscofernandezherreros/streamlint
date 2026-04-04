@@ -3,7 +3,7 @@ import os
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 import config
 
 def main():
@@ -23,13 +23,13 @@ def main():
     chunks = text_splitter.split_documents(docs)
     print(f"✂️ Fragmentos creados: {len(chunks)}")
 
-    # 3. Guardar en Chroma
-    vector_store = Chroma.from_documents(
+    # 3. Guardar en FAISS
+    vector_store = FAISS.from_documents(
         documents=chunks,
         embedding=OpenAIEmbeddings(model=config.EMBEDDING_MODEL),
-        persist_directory=config.CHROMA_DB_PATH
     )
-    print(f"✅ Base de datos guardada en: {config.CHROMA_DB_PATH}")
+    vector_store.save_local(config.FAISS_DB_PATH)
+    print(f"✅ Base de datos guardada en: {config.FAISS_DB_PATH}")
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -21,16 +21,15 @@ docs_split = text_splitter.split_documents(documentos)
 
 print(f"Se crearon {len(docs_split)} chunks de texto.")
 
-# 3. Guardamos la base de datos Chroma en una carpeta de Linux
-# He creado una ruta lógica dentro de tu carpeta de proyecto
-persist_db = "/home/usuario/streamlint/chroma_db"
+# 3. Guardamos la base de datos FAISS en una carpeta de Linux
+persist_db = "/home/usuario/streamlint/faiss_db"
 
-vectorstore = Chroma.from_documents(
+vectorstore = FAISS.from_documents(
     docs_split,
     # RECUERDA: No pegues la clave aquí, usa la variable de entorno que configuramos
     embedding=OpenAIEmbeddings(model="text-embedding-3-large"),
-    persist_directory=persist_db
 )
+vectorstore.save_local(persist_db)
 
 # 4. Ejecutamos la consulta
 consulta = "¿Dónde se encuentra el local del contrato en el que participa María Jiménez Campos?"

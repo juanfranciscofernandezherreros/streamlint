@@ -1,4 +1,4 @@
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.chains.query_constructor.base import AttributeInfo
 from langchain.retrievers.self_query.base import SelfQueryRetriever
@@ -35,7 +35,7 @@ documentos = [
 
 # 2. Crear el vector store con los documentos de ejemplo
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
-vectorstore = Chroma.from_documents(documentos, embeddings)
+vectorstore = FAISS.from_documents(documentos, embeddings)
 
 # 3. Definir los metadatos disponibles en los documentos
 metadata_field_info = [

@@ -3,7 +3,7 @@ import os
 import streamlit as st
 import config
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda, RunnableParallel
@@ -17,9 +17,10 @@ def format_docs(docs):
 
 @st.cache_resource
 def initialize_rag_system():
-    vector_store = Chroma(
-        persist_directory=config.CHROMA_DB_PATH,
-        embedding_function=OpenAIEmbeddings(model=config.EMBEDDING_MODEL)
+    vector_store = FAISS.load_local(
+        config.FAISS_DB_PATH,
+        OpenAIEmbeddings(model=config.EMBEDDING_MODEL),
+        allow_dangerous_deserialization=True
     )
     
     llm_query = ChatOpenAI(model=config.QUERY_MODEL, temperature=0)

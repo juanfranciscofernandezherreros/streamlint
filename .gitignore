@@ -11,6 +11,10 @@ __pycache__/
 # Environment variables
 .env
 
+# Vector store data
+chroma_db/
+faiss_db/
+
 # OS files
 .DS_Store
 Thumbs.db

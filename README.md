@@ -96,7 +96,7 @@ streamlint/
 │
 ├── contratos/                # PDFs de contratos para ejemplos RAG/retrievers
 ├── sesiones/                 # Conversaciones persistidas en JSON
-├── chroma_db/                # Base vectorial local (Chroma)
+├── faiss_db/                 # Base vectorial local (FAISS)
 ├── historial_chat.json       # Historial de ejemplo
 └── cambridge_english_first.pdf
 ```
@@ -143,7 +143,7 @@ Vector stores, multi-query, compresión contextual, ensemble, parent document, s
 
 #### `asistente_legal/` — RAG legal
 
-Proyecto RAG completo con ingesta de contratos PDF a Chroma, cadena de recuperación y generación, e interfaz de chat en Streamlit.
+Proyecto RAG completo con ingesta de contratos PDF a FAISS, cadena de recuperación y generación, e interfaz de chat en Streamlit.
 
 #### `agente_ia/` — Agente conversacional con herramientas
 
@@ -177,9 +177,8 @@ Agente inteligente con LangChain que busca en internet (DuckDuckGo), resuelve c�
 - `selenium` + ChromeDriver (SeleniumURLLoader)
 - `gitpython` (GitLoader)
 - `langchain-google-community`, `google-auth-oauthlib`, `google-api-python-client` (GoogleDriveLoader)
-- `chromadb` (persistencia vectorial con Chroma)
+- `faiss-cpu` (FAISS — persistencia vectorial)
 - `rank_bm25` (BM25Retriever)
-- `faiss-cpu` (FAISS)
 - `duckduckgo-search` (Agente IA — búsqueda web)
 - `langchain-classic` (Agente IA — AgentExecutor legacy)
 
@@ -273,7 +272,7 @@ docker compose run --rm agente-ia
 - El nivel 9 contiene **proyectos integradores** independientes y completos.
 - El archivo `22_embeding_language.py` conserva ese nombre por compatibilidad histórica del repositorio.
 - Algunos scripts tienen rutas absolutas locales en el código; si ejecutas en otra máquina, ajusta esas rutas.
-- `chroma_db/` y `sesiones/` son datos de ejecución/persistencia del proyecto.
+- `faiss_db/` y `sesiones/` son datos de ejecución/persistencia del proyecto.
 
 ---
 

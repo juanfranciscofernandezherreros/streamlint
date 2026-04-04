@@ -1,13 +1,14 @@
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 
 # 1. Conectar al vector store existente
-path_db = "/home/usuario/streamlint/chroma_db"
+path_db = "/home/usuario/streamlint/faiss_db"
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
-vectorstore = Chroma(
-    embedding_function=embeddings,
-    persist_directory=path_db
+vectorstore = FAISS.load_local(
+    path_db,
+    embeddings,
+    allow_dangerous_deserialization=True
 )
 
 consulta = "¿Cuáles son las cláusulas de rescisión en los contratos de arrendamiento?"
