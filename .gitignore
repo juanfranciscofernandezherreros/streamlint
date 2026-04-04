@@ -1,28 +1,11 @@
-# Virtual environment
-env/
-venv/
-.venv/
-
-# Python bytecode
-__pycache__/
-*.py[cod]
-*.pyo
-
-# Environment variables
-.env
-
-# Vector store data
+# Ignorar la base de datos de Chroma
 chroma_db/
-faiss_db/
+helpdesk_system/chroma_db/
 
-# OS files
-.DS_Store
-Thumbs.db
+# Ignorar archivos binarios grandes
+*.bin
+*.parquet
 
-# Temporary files
-*.tmp
-*.bak
-
-# IDE
-.vscode/
-.idea/
+# Ignorar el entorno virtual y claves
+env/
+.env
