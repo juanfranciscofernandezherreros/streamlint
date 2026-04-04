@@ -1,16 +1,16 @@
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain_classic.retrievers.multi_query import MultiQueryRetriever
 import os
 
-# 1. Ajustamos la ruta al directorio de la base de datos en Linux
-# Usamos la dirección que confirmamos antes en tu terminal
-path_db = "/home/usuario/streamlint/chroma_db"
+# 1. Cargamos la base de datos FAISS desde disco
+path_db = "/home/usuario/streamlint/faiss_db"
 
-vectorstore = Chroma(
-    embedding_function=OpenAIEmbeddings(model="text-embedding-3-large"),
-    persist_directory=path_db
+vectorstore = FAISS.load_local(
+    path_db,
+    OpenAIEmbeddings(model="text-embedding-3-large"),
+    allow_dangerous_deserialization=True
 )
 
 # 2. Configuramos el modelo de lenguaje (LLM)

@@ -1,4 +1,4 @@
-from langchain_community.vectorstores import Chroma
+from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import OpenAIEmbeddings
 from langchain.retrievers import ParentDocumentRetriever
 from langchain.storage import InMemoryStore
@@ -19,12 +19,9 @@ parent_splitter = RecursiveCharacterTextSplitter(chunk_size=2000)
 # Splitter para documentos hijo: chunks pequeños para embeddings más precisos
 child_splitter = RecursiveCharacterTextSplitter(chunk_size=400)
 
-# 3. Vector store para los chunks pequeños (hijos)
+# 3. Vector store en memoria para los chunks pequeños (hijos)
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
-vectorstore = Chroma(
-    collection_name="parent_document_retriever",
-    embedding_function=embeddings
-)
+vectorstore = InMemoryVectorStore(embedding=embeddings)
 
 # 4. Almacenamiento en memoria para los documentos padre
 store = InMemoryStore()
@@ -40,9 +37,7 @@ retriever = ParentDocumentRetriever(
 # 6. Indexar los documentos (crea chunks hijo para búsqueda y guarda padres)
 retriever.add_documents(documentos)
 
-# Verificar cuántos chunks hijo se indexaron
-num_hijos = len(vectorstore.get()["ids"])
-print(f"Chunks hijo indexados en el vector store: {num_hijos}")
+# Verificar cuántos documentos padre se indexaron
 print(f"Documentos padre en el almacenamiento: {len(list(store.yield_keys()))}\n")
 
 # 7. Ejecutar la consulta

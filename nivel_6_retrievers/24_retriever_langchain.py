@@ -1,10 +1,11 @@
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 
-# Sustituimos la ruta de C:\ por la de tu usuario en Linux
-vectorstore = Chroma(
-    embedding_function=OpenAIEmbeddings(model="text-embedding-3-large"),
-    persist_directory="/home/usuario/streamlint/chroma_db"
+# Cargamos la base de datos FAISS desde disco
+vectorstore = FAISS.load_local(
+    "/home/usuario/streamlint/faiss_db",
+    OpenAIEmbeddings(model="text-embedding-3-large"),
+    allow_dangerous_deserialization=True
 )
 
 retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 2})

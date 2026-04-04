@@ -1,4 +1,4 @@
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor, DocumentCompressorPipeline
@@ -6,12 +6,13 @@ from langchain_community.document_transformers import EmbeddingsRedundantFilter
 from langchain_text_splitters import CharacterTextSplitter
 
 # 1. Conectar al vector store existente
-path_db = "/home/usuario/streamlint/chroma_db"
+path_db = "/home/usuario/streamlint/faiss_db"
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
-vectorstore = Chroma(
-    embedding_function=embeddings,
-    persist_directory=path_db
+vectorstore = FAISS.load_local(
+    path_db,
+    embeddings,
+    allow_dangerous_deserialization=True
 )
 
 # 2. Configurar el modelo de lenguaje
