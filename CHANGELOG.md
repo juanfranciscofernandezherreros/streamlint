@@ -4,6 +4,46 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-05
 
+### PR #29: Update Chroma imports to `import chromadb` + `from langchain_community import Chroma`
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Branch:** `copilot/add-chromadb-imports` → `master`
+- **Commit:** [`7aac92f`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/7aac92f19ac91dd2822eead0384c297cd29dc0d5)
+
+**Description:**
+
+Migrates all Chroma vector store imports across the repository to the new import style.
+
+- **5 files** using `from langchain_community.vectorstores import Chroma` → `from langchain_community import Chroma` + `import chromadb`
+  - `dif_system/app.py`, `dif_system/setup_rag.py`
+  - `helpdesk_system/app.py`, `helpdesk_system/rag_system.py`, `helpdesk_system/setup_rag.py`
+
+- **2 files** using `from langchain_chroma import Chroma` → `from langchain_community import Chroma` (already had `import chromadb`)
+  - `nivel_10_memoria_y_evaluacion/48_memoria_vectorial_langgraph.py`
+  - `multiuser_chat_system/memory_manager.py`
+
+After:
+```python
+import chromadb
+from langchain_community import Chroma
+```
+
+No old-style imports (`langchain_community.vectorstores` or `langchain_chroma`) remain.
+
+**Changed files (7):**
+
+- 🟡 `nivel_10_memoria_y_evaluacion/48_memoria_vectorial_langgraph.py`
+- 🟡 `nivel_9_proyectos_integradores/dif_system/app.py`
+- 🟡 `nivel_9_proyectos_integradores/dif_system/setup_rag.py`
+- 🟡 `nivel_9_proyectos_integradores/helpdesk_system/app.py`
+- 🟡 `nivel_9_proyectos_integradores/helpdesk_system/rag_system.py`
+- 🟡 `nivel_9_proyectos_integradores/helpdesk_system/setup_rag.py`
+- 🟡 `nivel_9_proyectos_integradores/multiuser_chat_system/memory_manager.py`
+
+---
+
+## 2026-04-05
+
 ### Merge pull request #28 from juanfranciscofernandezherreros/copilot/explore-memory-management-techniques
 
 - **Author:** Juan Francisco Fernandez Herreros
