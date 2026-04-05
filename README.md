@@ -107,6 +107,12 @@ streamlint/
 │   │   ├── rag_system.py
 │   │   ├── setup_rag.py
 │   │   └── docs/
+│   ├── dif_system/
+│   │   ├── app.py
+│   │   ├── config.py
+│   │   ├── setup_rag.py
+│   │   └── docs/
+│   │       └── enero.json
 │   └── youtube_video_downloader/
 │       ├── app.py
 │       ├── downloader.py
@@ -505,6 +511,31 @@ streamlit run nivel_9_proyectos_integradores/helpdesk_system/app.py
 
 streamlit run nivel_9_proyectos_integradores/youtube_video_downloader/app.py
 ```
+
+### Proyecto DIF System — Asistente de Gimnasio (nivel 9)
+
+```bash
+# 1. Indexar el plan maestro de entrenamiento (solo la primera vez)
+python nivel_9_proyectos_integradores/dif_system/setup_rag.py
+
+# 2. Lanzar el asistente de horarios
+streamlit run nivel_9_proyectos_integradores/dif_system/app.py
+```
+
+Preguntas de ejemplo que puede responder:
+
+- ¿Qué clases hay el 21 de enero?
+- ¿Qué actividad hay en la Sala A el 3 de enero?
+- ¿Qué días hay GAP en enero?
+- ¿Cuándo hay DEKA-DIF?
+- ¿Qué es Strong?
+- ¿Cuánto dura Power Play?
+- ¿Qué significa GAP?
+- ¿Qué horario tiene DIF Senior?
+- ¿Cuándo hay fútbol?
+- ¿Hay Pilates entre semana?
+- ¿Qué talleres hay en enero?
+- ¿Está abierto el gimnasio el 1 de enero?
 
 ---
 

@@ -18,7 +18,10 @@ numpy                     # Similitud coseno con OpenAIEmbeddings (22_embeding_l
 # Retrievers — nivel_6
 faiss-cpu                 # FAISS vector store
 rank_bm25                 # BM25Retriever (27_ensemble_retriever.py)
-chromadb                  # ChromaDB vector store (helpdesk_system)
+chromadb                  # ChromaDB vector store (helpdesk_system, dif_system)
+
+# Chains — nivel_9 (dif_system)
+langchain-classic         # create_retrieval_chain / create_stuff_documents_chain
 
 # Proyectos integradores — nivel_9
 duckduckgo-search         # Agente IA — búsqueda web
