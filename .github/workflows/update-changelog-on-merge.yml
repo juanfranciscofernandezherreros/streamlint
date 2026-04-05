@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Generate changelog entry
         uses: actions/github-script@v7
@@ -76,17 +76,18 @@ jobs:
             }
 
             // Get changed files
+            const MAX_FILES_DISPLAYED = 20;
             const files = commit.files || [];
             if (files.length > 0) {
               entry += `\n**Changed files (${files.length}):**\n\n`;
-              for (const file of files.slice(0, 20)) {
+              for (const file of files.slice(0, MAX_FILES_DISPLAYED)) {
                 const icon = file.status === 'added' ? '🟢' :
                              file.status === 'removed' ? '🔴' :
                              file.status === 'renamed' ? '🔄' : '🟡';
                 entry += `- ${icon} \`${file.filename}\`\n`;
               }
-              if (files.length > 20) {
-                entry += `- ... and ${files.length - 20} more files\n`;
+              if (files.length > MAX_FILES_DISPLAYED) {
+                entry += `- ... and ${files.length - MAX_FILES_DISPLAYED} more files\n`;
               }
             }
 
@@ -106,8 +107,13 @@ jobs:
             if (existing.startsWith('# Changelog')) {
               // Insert new entry after the header
               const headerEnd = existing.indexOf('\n\n', existing.indexOf('\n') + 1);
-              const afterHeader = existing.substring(headerEnd + 2);
-              content = existing.substring(0, headerEnd + 2) + entry + afterHeader;
+              if (headerEnd === -1) {
+                // Header format not as expected; prepend header + entry
+                content = header + entry + existing;
+              } else {
+                const afterHeader = existing.substring(headerEnd + 2);
+                content = existing.substring(0, headerEnd + 2) + entry + afterHeader;
+              }
             } else {
               content = header + entry + existing;
             }
