@@ -3,7 +3,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 import chromadb
-from langchain_chroma import Chroma
+from langchain_community import Chroma
 import uuid
 
 CHROMDB_PATH = "C:\\Users\\santiago\\curso_langchain\\Tema 5\\chromadb"
