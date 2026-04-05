@@ -147,7 +147,13 @@ streamlint/
 │   ├── 45_memoria_simple_langgraph.py
 │   ├── 46_memoria_ventana_deslizante.py
 │   ├── 47_memoria_persistence_langgraph.py
-│   └── 48_memoria_vectorial_langgraph.py
+│   ├── 48_memoria_vectorial_langgraph.py
+│   ├── 49_memoria_resumen.py
+│   ├── 50_memoria_filtrado_inteligente.py
+│   ├── 51_memoria_limite_tokens.py
+│   ├── 52_memoria_hibrida_tipo_mensaje.py
+│   ├── 53_memoria_ventana_adaptativa.py
+│   └── 54_memoria_prioridad_contexto.py
 │
 └── datos/                                   # 📁 Recursos y datos de ejemplo
     ├── README.md
@@ -327,7 +333,7 @@ Sistema de chat multi-usuario con Streamlit que integra memoria vectorial (Chrom
 | `config.py` | Configuración del sistema |
 | `utils.py` | Utilidades de formato y validación |
 
-### Nivel 10 — Memoria y Evaluación (41–48): Calidad y persistencia
+### Nivel 10 — Memoria y Evaluación (41–54): Calidad y persistencia
 
 | # | Archivo | Descripción |
 |---|---------|-------------|
@@ -339,6 +345,12 @@ Sistema de chat multi-usuario con Streamlit que integra memoria vectorial (Chrom
 | 46 | `46_memoria_ventana_deslizante.py` | Ventana deslizante con `trim_messages` en LangGraph |
 | 47 | `47_memoria_persistence_langgraph.py` | Persistencia en SQLite con `SqliteSaver` |
 | 48 | `48_memoria_vectorial_langgraph.py` | Memoria vectorial con ChromaDB y embeddings |
+| 49 | `49_memoria_resumen.py` | Memoria de resumen: condensa conversaciones largas automáticamente |
+| 50 | `50_memoria_filtrado_inteligente.py` | Filtrado inteligente: retiene mensajes importantes por criterios |
+| 51 | `51_memoria_limite_tokens.py` | Gestión de memoria por límite de tokens |
+| 52 | `52_memoria_hibrida_tipo_mensaje.py` | Memoria híbrida con retención diferenciada por tipo de mensaje |
+| 53 | `53_memoria_ventana_adaptativa.py` | Ventana deslizante adaptativa según contexto de conversación |
+| 54 | `54_memoria_prioridad_contexto.py` | Prioridad de contexto: retiene mensajes por relevancia semántica |
 
 ---
 
@@ -517,7 +529,7 @@ streamlit run nivel_8_aplicaciones/39_streamlit_chatbox.py   # Chatbot con persi
 streamlit run nivel_8_aplicaciones/40_streamlit_quiz_exam.py # Examen tipo test
 ```
 
-### Memoria y Evaluación — Nivel 10 (41–48)
+### Memoria y Evaluación — Nivel 10 (41–54)
 
 ```bash
 python nivel_10_memoria_y_evaluacion/41_conversacion_con_memoria.py
@@ -528,6 +540,12 @@ python nivel_10_memoria_y_evaluacion/45_memoria_simple_langgraph.py
 python nivel_10_memoria_y_evaluacion/46_memoria_ventana_deslizante.py
 python nivel_10_memoria_y_evaluacion/47_memoria_persistence_langgraph.py
 python nivel_10_memoria_y_evaluacion/48_memoria_vectorial_langgraph.py
+python nivel_10_memoria_y_evaluacion/49_memoria_resumen.py
+python nivel_10_memoria_y_evaluacion/50_memoria_filtrado_inteligente.py
+python nivel_10_memoria_y_evaluacion/51_memoria_limite_tokens.py
+python nivel_10_memoria_y_evaluacion/52_memoria_hibrida_tipo_mensaje.py
+python nivel_10_memoria_y_evaluacion/53_memoria_ventana_adaptativa.py
+python nivel_10_memoria_y_evaluacion/54_memoria_prioridad_contexto.py
 ```
 
 ### Proyecto RAG Legal (nivel 9)
@@ -625,12 +643,12 @@ Recursos y datos de ejemplo utilizados por los scripts:
 
 ## 📌 Notas de organización
 
-- La secuencia oficial de aprendizaje es **01 → 48**, seguida de los proyectos integradores.
+- La secuencia oficial de aprendizaje es **01 → 54**, seguida de los proyectos integradores.
 - Los niveles 1–6 cubren fundamentos de LangChain puro.
 - El nivel 7 introduce **LangGraph** (grafos de estado, workflows y checkpointers).
 - El nivel 8 agrupa las aplicaciones completas con **Streamlit**.
 - El nivel 9 contiene **6 proyectos integradores** independientes y completos.
-- El nivel 10 cubre **memoria conversacional** (fundamentos, LangChain, LangGraph, ventana deslizante, persistencia SQLite, memoria vectorial) y **evaluación de LLMs**.
+- El nivel 10 cubre **memoria conversacional** (fundamentos, LangChain, LangGraph, ventana deslizante, persistencia SQLite, memoria vectorial, resumen, filtrado inteligente, límite de tokens, híbrida por tipo, ventana adaptativa, prioridad de contexto) y **evaluación de LLMs**.
 - Los datos y recursos de ejemplo están centralizados en la carpeta `datos/`.
 - El archivo `22_embeding_language.py` conserva ese nombre por compatibilidad histórica.
 - Todas las rutas se calculan dinámicamente a partir de la ubicación de cada script.
