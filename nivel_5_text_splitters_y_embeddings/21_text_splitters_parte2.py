@@ -20,7 +20,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # 1. Cargar el documento PDF
 ruta_pdf = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "cambridge_english_first.pdf"
+    os.path.dirname(os.path.abspath(__file__)), "..", "datos", "cambridge_english_first.pdf"
 )
 loader = PyPDFLoader(ruta_pdf)
 pages = loader.load()

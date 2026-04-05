@@ -1,5 +1,5 @@
 """
-35_streamlit_chatbox.py
+39_streamlit_chatbox.py
 -----------------------
 Aplicación principal de chatbot construida con Streamlit y LangChain.
 
@@ -35,7 +35,7 @@ if sys.stdout.encoding != 'utf-8':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # Carpeta donde se guardarán las sesiones JSON
-CHAT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sesiones")
+CHAT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "datos", "sesiones")
 if not os.path.exists(CHAT_DIR):
     os.makedirs(CHAT_DIR)
 
