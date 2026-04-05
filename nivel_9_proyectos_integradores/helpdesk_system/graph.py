@@ -40,7 +40,7 @@ class HelpdeskGraph:
             "contexto_rag": resultado["respuesta"],
             "historial": [
                 f"RAG ejecutado con MultiQueryRetriever",
-                f"Confianza: {resultado["confianza"]}",
+                f"Confianza: {resultado['confianza']}",
                 f"Fuentes consultadas: {len(resultado['fuentes'])}"
             ]
         }
