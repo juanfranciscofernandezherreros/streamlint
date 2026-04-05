@@ -1,9 +1,16 @@
 import streamlit as st
 import uuid
+import sys
+import os
+
+# Ensure the helpdesk_system directory is in sys.path so local modules
+# (graph, setup_rag, config, rag_system) can be found regardless of CWD.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from graph import crear_helpdesk, HelpdeskState
 from setup_rag import DocumentProcessor
+from config import CHROMADB_PATH, DOCS_PATH
 from datetime import datetime
-import os
 
 # Configuración de página
 st.set_page_config(
@@ -19,13 +26,13 @@ if "helpdesk" not in st.session_state:
 
 def verificar_rag_setup():
     """Verifica si el sistema RAG está configurado."""
-    processor = DocumentProcessor()
+    processor = DocumentProcessor(docs_path=DOCS_PATH, chroma_path=CHROMADB_PATH)
     return processor.chroma_path.exists()
 
 def configurar_rag():
     """Configura el sistema RAG."""
     with st.spinner("🔧 Configurando sistema RAG..."):
-        processor = DocumentProcessor()
+        processor = DocumentProcessor(docs_path=DOCS_PATH, chroma_path=CHROMADB_PATH)
         vectorstore = processor.setup_rag_system(force_rebuild=True)
         return vectorstore is not None
 
