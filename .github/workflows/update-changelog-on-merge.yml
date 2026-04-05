@@ -1,0 +1,134 @@
+name: Update Changelog on Merge to Master
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Generate changelog entry
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            // Get the current date in YYYY-MM-DD format
+            const now = new Date();
+            const date = now.toISOString().split('T')[0];
+
+            // Get the merge commit message and author
+            const commitSha = context.sha;
+            const shortSha = commitSha.substring(0, 7);
+
+            // Get the commit details
+            const { data: commit } = await github.rest.repos.getCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: commitSha,
+            });
+
+            const commitMessage = commit.commit.message;
+            const author = commit.commit.author.name;
+
+            // Try to find the associated merged PR
+            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: commitSha,
+            });
+
+            const mergedPR = prs.find(pr => pr.merged_at !== null);
+
+            // Build the new changelog entry
+            let entry = `## ${date}\n\n`;
+
+            if (mergedPR) {
+              entry += `### PR #${mergedPR.number}: ${mergedPR.title}\n\n`;
+              entry += `- **Author:** ${author}\n`;
+              entry += `- **Branch:** \`${mergedPR.head.ref}\` → \`${mergedPR.base.ref}\`\n`;
+              entry += `- **Commit:** [\`${shortSha}\`](${commit.html_url})\n`;
+
+              if (mergedPR.body) {
+                const cleanBody = mergedPR.body.trim();
+                if (cleanBody.length > 0) {
+                  entry += `\n**Description:**\n\n${cleanBody}\n`;
+                }
+              }
+            } else {
+              // Direct push to master (no PR)
+              const firstLine = commitMessage.split('\n')[0];
+              entry += `### ${firstLine}\n\n`;
+              entry += `- **Author:** ${author}\n`;
+              entry += `- **Commit:** [\`${shortSha}\`](${commit.html_url})\n`;
+            }
+
+            // Get changed files
+            const MAX_FILES_DISPLAYED = 20;
+            const files = commit.files || [];
+            if (files.length > 0) {
+              entry += `\n**Changed files (${files.length}):**\n\n`;
+              for (const file of files.slice(0, MAX_FILES_DISPLAYED)) {
+                const icon = file.status === 'added' ? '🟢' :
+                             file.status === 'removed' ? '🔴' :
+                             file.status === 'renamed' ? '🔄' : '🟡';
+                entry += `- ${icon} \`${file.filename}\`\n`;
+              }
+              if (files.length > MAX_FILES_DISPLAYED) {
+                entry += `- ... and ${files.length - MAX_FILES_DISPLAYED} more files\n`;
+              }
+            }
+
+            entry += '\n---\n\n';
+
+            // Read existing changelog or create header
+            const changelogPath = 'CHANGELOG.md';
+            let existing = '';
+
+            if (fs.existsSync(changelogPath)) {
+              existing = fs.readFileSync(changelogPath, 'utf8');
+            }
+
+            const header = '# Changelog\n\nAll notable changes merged to `master` are documented automatically.\n\n';
+
+            let content;
+            if (existing.startsWith('# Changelog')) {
+              // Insert new entry after the header
+              const headerEnd = existing.indexOf('\n\n', existing.indexOf('\n') + 1);
+              if (headerEnd === -1) {
+                // Header format not as expected; prepend header + entry
+                content = header + entry + existing;
+              } else {
+                const afterHeader = existing.substring(headerEnd + 2);
+                content = existing.substring(0, headerEnd + 2) + entry + afterHeader;
+              }
+            } else {
+              content = header + entry + existing;
+            }
+
+            fs.writeFileSync(changelogPath, content, 'utf8');
+            core.info(`✅ Changelog updated with entry for ${shortSha}`);
+
+      - name: Commit and push changelog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: update CHANGELOG.md with latest merge [skip ci]"
+            git push
+          fi
