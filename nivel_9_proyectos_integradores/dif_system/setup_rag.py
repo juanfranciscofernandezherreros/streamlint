@@ -45,7 +45,18 @@ class DocumentProcessor:
         # Procesar glosario
         for mod in plan.get("glosario_modalidades", []):
             text = f"Modalidad: {mod.get('nombre')}\nTipo: {mod.get('tipo')}\nDetalles: {mod.get('detalles')}\nDuración: {mod.get('duracion')}"
+            if mod.get("nombre_completo"):
+                text += f"\nNombre completo: {mod.get('nombre_completo')}"
             documents.append(Document(page_content=text, metadata={"tipo": "modalidad"}))
+
+        # Procesar actividades fijas de Sala C
+        for act in plan.get("actividades_fijas_sala_c", []):
+            text = (
+                f"Actividad fija Sala C: {act.get('actividad')}\n"
+                f"Días: {act.get('dias')}\n"
+                f"Horario: {act.get('horario')}"
+            )
+            documents.append(Document(page_content=text, metadata={"tipo": "actividad_fija"}))
 
         return documents
 
