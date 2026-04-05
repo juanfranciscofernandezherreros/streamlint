@@ -4,6 +4,25 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-05
 
+### Merge pull request #28 from juanfranciscofernandezherreros/copilot/explore-memory-management-techniques
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`bf72177`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/bf7217784786dc5c0d9f558751b58359ecb24a60)
+
+**Changed files (7):**
+
+- 🟡 `README.md`
+- 🟢 `nivel_10_memoria_y_evaluacion/49_memoria_resumen.py`
+- 🟢 `nivel_10_memoria_y_evaluacion/50_memoria_filtrado_inteligente.py`
+- 🟢 `nivel_10_memoria_y_evaluacion/51_memoria_limite_tokens.py`
+- 🟢 `nivel_10_memoria_y_evaluacion/52_memoria_hibrida_tipo_mensaje.py`
+- 🟢 `nivel_10_memoria_y_evaluacion/53_memoria_ventana_adaptativa.py`
+- 🟢 `nivel_10_memoria_y_evaluacion/54_memoria_prioridad_contexto.py`
+
+---
+
+## 2026-04-05
+
 ### PR #27: Reorganize project after nivel 10 memory course and multiuser chat commit
 
 - **Author:** Juan Francisco Fernandez Herreros
