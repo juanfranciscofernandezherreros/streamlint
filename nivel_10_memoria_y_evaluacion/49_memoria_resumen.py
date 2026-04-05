@@ -88,11 +88,7 @@ app = workflow.compile(checkpointer=memory)
 def chat(message, thread_id="sesion_terminal"):
     config = {"configurable": {"thread_id": thread_id}}
     result = app.invoke(
-        {
-            "messages": [HumanMessage(content=message)],
-            "conversation_summary": "",
-            "message_count": 0,
-        },
+        {"messages": [HumanMessage(content=message)]},
         config,
     )
     return result["messages"][-1].content

@@ -39,6 +39,9 @@ def filter_important_messages(state: ChatState) -> dict:
     # Mantener todos los importantes + los 4 regulares mas recientes
     filtered_messages = important_messages + regular_messages[-4:]
 
+    # Reordenar cronologicamente
+    filtered_messages.sort(key=lambda x: messages.index(x))
+
     return {"messages": filtered_messages}
 
 
