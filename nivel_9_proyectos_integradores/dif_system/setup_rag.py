@@ -148,7 +148,7 @@ class DocumentProcessor:
 
         print(f"  ✅ Generados {len(documents)} documentos desde {filepath.name}")
         return documents
-    
+
     def _get_doc_type(self, filename: str) -> str:
         """Determina el tipo de documento basado en el nombre."""
         if "faq" in filename.lower():
