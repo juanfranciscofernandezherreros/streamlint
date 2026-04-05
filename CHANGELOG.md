@@ -4,6 +4,58 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-05
 
+### PR #27: Reorganize project after nivel 10 memory course and multiuser chat commit
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Branch:** `copilot/reorganizar-proyecto-ultimo-commit` → `master`
+- **Commit:** [`0fa1008`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/0fa10082dfbf3cb0cc0e00fab9198d4f19217afd)
+
+**Description:**
+
+The last commit added `multiuser_chat_system/` at the repo root and 6 unnumbered memory scripts in `nivel_10_memoria_y_evaluacion/`, breaking the established project conventions.
+
+### File moves
+- **`multiuser_chat_system/`** → `nivel_9_proyectos_integradores/multiuser_chat_system/` (alongside the other 5 integrating projects)
+- **6 unnumbered scripts** in nivel_10 renamed to continue the sequential numbering (43–48):
+
+| Before | After |
+|--------|-------|
+| `fundamentos_memoria.py` | `43_fundamentos_memoria.py` |
+| `fundamentos_memoria_langchain.py` | `44_fundamentos_memoria_langchain.py` |
+| `memoria_simple_langraph.py` | `45_memoria_simple_langgraph.py` |
+| `memoria_ventana_deslizante.py` | `46_memoria_ventana_deslizante.py` |
+| `memoria_persistence_langraph.py` | `47_memoria_persistence_langgraph.py` |
+| `memoria_vectorial_langraph.py` | `48_memoria_vectorial_langgraph.py` |
+
+### README updates
+- **Root README** — structure tree, learning path (01→48), execution commands, summary table; added missing `dif_system` and new `multiuser_chat_system` project descriptions
+- **nivel_9 README** — 5→6 projects, new multiuser_chat_system section
+- **nivel_10 README** — 2→8 scripts with full concept documentation for all memory types (LangChain, LangGraph, sliding window, SQLite persistence, vectorial/ChromaDB)
+
+### Note
+CodeQL flagged 6 pre-existing `py/path-injection` alerts in `memory_manager.py` — these are unchanged files that were only moved via `git mv`.
+
+**Changed files (14):**
+
+- 🟡 `README.md`
+- 🔄 `nivel_10_memoria_y_evaluacion/43_fundamentos_memoria.py`
+- 🔄 `nivel_10_memoria_y_evaluacion/44_fundamentos_memoria_langchain.py`
+- 🔄 `nivel_10_memoria_y_evaluacion/45_memoria_simple_langgraph.py`
+- 🔄 `nivel_10_memoria_y_evaluacion/46_memoria_ventana_deslizante.py`
+- 🔄 `nivel_10_memoria_y_evaluacion/47_memoria_persistence_langgraph.py`
+- 🔄 `nivel_10_memoria_y_evaluacion/48_memoria_vectorial_langgraph.py`
+- 🟡 `nivel_10_memoria_y_evaluacion/README.md`
+- 🟡 `nivel_9_proyectos_integradores/README.md`
+- 🔄 `nivel_9_proyectos_integradores/multiuser_chat_system/app.py`
+- 🔄 `nivel_9_proyectos_integradores/multiuser_chat_system/chatbot.py`
+- 🔄 `nivel_9_proyectos_integradores/multiuser_chat_system/config.py`
+- 🔄 `nivel_9_proyectos_integradores/multiuser_chat_system/memory_manager.py`
+- 🔄 `nivel_9_proyectos_integradores/multiuser_chat_system/utils.py`
+
+---
+
+## 2026-04-05
+
 ### nivel 10 memory course and multiuser chat
 
 - **Author:** Juan Francisco
