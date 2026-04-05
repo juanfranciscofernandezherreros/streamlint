@@ -16,7 +16,7 @@ Este módulo demuestra tres evaluadores:
 3. **Evaluador personalizado** — muestra cómo construir criterios a medida.
 
 Ejecutar:
-    python nivel_10_memoria_y_evaluacion/39_evaluacion_llm.py
+    python nivel_10_memoria_y_evaluacion/42_evaluacion_llm.py
 """
 
 from langchain_openai import ChatOpenAI
