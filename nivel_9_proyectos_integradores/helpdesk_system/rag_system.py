@@ -1,4 +1,5 @@
-from langchain_community.vectorstores import Chroma
+import chromadb
+from langchain_community import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_classic.retrievers import MultiQueryRetriever
 from pathlib import Path
