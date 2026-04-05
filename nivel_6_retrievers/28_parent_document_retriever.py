@@ -1,12 +1,14 @@
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import OpenAIEmbeddings
 from langchain.retrievers import ParentDocumentRetriever
-from langchain.storage import InMemoryStore
+from langchain_core.stores import InMemoryStore
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFDirectoryLoader
+import os
 
 # 1. Cargar documentos
-path_contratos = "/home/usuario/streamlint/contratos"
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path_contratos = os.path.join(_BASE_DIR, "datos", "contratos")
 loader = PyPDFDirectoryLoader(path_contratos)
 documentos = loader.load()
 

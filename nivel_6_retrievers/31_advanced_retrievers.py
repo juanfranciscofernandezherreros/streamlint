@@ -1,8 +1,10 @@
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
+import os
 
 # 1. Conectar al vector store existente
-path_db = "/home/usuario/streamlint/faiss_db"
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path_db = os.path.join(_BASE_DIR, "faiss_db")
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
 vectorstore = FAISS.load_local(

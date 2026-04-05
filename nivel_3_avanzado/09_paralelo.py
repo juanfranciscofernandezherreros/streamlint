@@ -21,15 +21,15 @@ Ejecutar:
     python nivel_3_avanzado/09_paralelo.py
 """
 
-import os
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableParallel
 from langchain_core.output_parsers import StrOutputParser
 
 # 1. Configuración del modelo
-# Asegúrate de tener tu API Key en las variables de entorno
-os.environ["OPENAI_API_KEY"] = "tu_api_key_aquí"
+# Carga la API Key desde el archivo .env o variables de entorno
+from dotenv import load_dotenv
+load_dotenv()
 model = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 # 2. Definimos los diferentes "caminos" o ramas

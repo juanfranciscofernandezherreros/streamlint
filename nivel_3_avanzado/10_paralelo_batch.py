@@ -17,14 +17,14 @@ Ejecutar:
     python nivel_3_avanzado/10_paralelo_batch.py
 """
 
-import os
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableParallel
 from langchain_core.output_parsers import StrOutputParser
 
 # 1. Configuración del modelo
-os.environ["OPENAI_API_KEY"] = "tu_api_key_aquí"
+from dotenv import load_dotenv
+load_dotenv()
 model = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 # 2. Definición de ramas (Igual que antes)

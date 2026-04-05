@@ -1,9 +1,9 @@
 # config.py
 import os
 
-# Rutas
-BASE_DIR = "/home/usuario/streamlint"
-CONTRATOS_PATH = os.path.join(BASE_DIR, "contratos")
+# Rutas (relativas al proyecto)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+CONTRATOS_PATH = os.path.join(BASE_DIR, "datos", "contratos")
 FAISS_DB_PATH = os.path.join(BASE_DIR, "faiss_db")
 
 # Modelos

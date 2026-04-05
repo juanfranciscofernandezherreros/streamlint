@@ -4,9 +4,9 @@ from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
 
-# 1. Ajustamos la ruta al directorio de contratos en Linux
-# Usamos la ruta absoluta que sacamos de tu comando 'pwd'
-path_contratos = "/home/usuario/streamlint/contratos"
+# 1. Ruta al directorio de contratos (relativa al proyecto)
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path_contratos = os.path.join(_BASE_DIR, "datos", "contratos")
 loader = PyPDFDirectoryLoader(path_contratos)
 documentos = loader.load()
 
@@ -21,8 +21,8 @@ docs_split = text_splitter.split_documents(documentos)
 
 print(f"Se crearon {len(docs_split)} chunks de texto.")
 
-# 3. Guardamos la base de datos FAISS en una carpeta de Linux
-persist_db = "/home/usuario/streamlint/faiss_db"
+# 3. Guardamos la base de datos FAISS
+persist_db = os.path.join(_BASE_DIR, "faiss_db")
 
 vectorstore = FAISS.from_documents(
     docs_split,

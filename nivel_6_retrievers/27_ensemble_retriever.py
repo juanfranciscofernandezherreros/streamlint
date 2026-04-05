@@ -1,12 +1,14 @@
 from langchain_community.vectorstores import FAISS
 from langchain_community.retrievers import BM25Retriever
-from langchain.retrievers import EnsembleRetriever
+from langchain_community.retrievers import EnsembleRetriever
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+import os
 
 # 1. Cargar documentos
-path_contratos = "/home/usuario/streamlint/contratos"
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path_contratos = os.path.join(_BASE_DIR, "datos", "contratos")
 loader = PyPDFDirectoryLoader(path_contratos)
 documentos = loader.load()
 
