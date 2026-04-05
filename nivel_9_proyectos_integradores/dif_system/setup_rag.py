@@ -5,14 +5,13 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # --- CONFIGURACIÓN ---
-DOCS_PATH = "/home/usuario/streamlint/nivel_9_proyectos_integradores/dif_system/docs"
-CHROMA_PATH = "/home/usuario/streamlint/nivel_9_proyectos_integradores/dif_system/chroma_db"
+from config import CHROMADB_PATH as CHROMA_PATH, DOCS_PATH, EMBEDDINGS_MODEL
 
 def build_openai_rag():
     print("🚀 Iniciando proceso con OpenAI...")
     
     # 1. Embeddings de OpenAI
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    embeddings = OpenAIEmbeddings(model=EMBEDDINGS_MODEL)
     
     # 2. Cargar todos los PDFs de la carpeta
     loader = DirectoryLoader(DOCS_PATH, glob="**/*.pdf", loader_cls=PyPDFLoader)
