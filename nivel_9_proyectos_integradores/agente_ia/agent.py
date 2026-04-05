@@ -5,7 +5,7 @@ import argparse
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from langchain_classic.agents import AgentExecutor, create_openai_tools_agent
+from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 

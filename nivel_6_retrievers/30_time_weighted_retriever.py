@@ -1,6 +1,6 @@
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import OpenAIEmbeddings
-from langchain.retrievers import TimeWeightedVectorStoreRetriever
+from langchain_community.retrievers import TimeWeightedVectorStoreRetriever
 from langchain.schema import Document
 from datetime import datetime, timedelta
 

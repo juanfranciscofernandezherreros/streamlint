@@ -6,6 +6,7 @@ from config import *
 from langchain_core.prompts import ChatPromptTemplate
 from langgraph.graph import StateGraph, START, END
 import sqlite3
+import os
 from langgraph.checkpoint.sqlite import SqliteSaver
 
 # Definicion del Estado
@@ -208,7 +209,10 @@ Responde solo con "automatico" o "escalado" y una breve justificación (máximo 
         if not self.graph:
             self.crear_grafo()
 
-        conn = sqlite3.connect("helpdesk.db", check_same_thread=False)
+        conn = sqlite3.connect(
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "helpdesk.db"),
+            check_same_thread=False,
+        )
 
         checkpointer = SqliteSaver(conn)
 

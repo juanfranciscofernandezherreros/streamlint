@@ -1,11 +1,12 @@
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
-from langchain_classic.retrievers.multi_query import MultiQueryRetriever
+from langchain.retrievers.multi_query import MultiQueryRetriever
 import os
 
 # 1. Cargamos la base de datos FAISS desde disco
-path_db = "/home/usuario/streamlint/faiss_db"
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path_db = os.path.join(_BASE_DIR, "faiss_db")
 
 vectorstore = FAISS.load_local(
     path_db,

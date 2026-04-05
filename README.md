@@ -25,6 +25,7 @@ Ruta progresiva para dominar el ecosistema LangChain:
 streamlint/
 ├── README.md
 ├── requirements.txt
+├── .env.example                               # Plantilla de variables de entorno
 ├── .gitignore
 │
 ├── nivel_1_basico/                          # ⭐ Nivel 1 — Prompts y plantillas
@@ -319,96 +320,190 @@ pip install langchain-google-community google-auth-oauthlib google-api-python-cl
 
 ---
 
+## ⚙️ Requisitos previos
+
+| Requisito | Versión mínima | Notas |
+|-----------|----------------|-------|
+| **Python** | 3.10+ | Recomendado 3.12 |
+| **pip** | 21+ | Para instalar dependencias |
+| **ffmpeg** | cualquiera | Solo para YouTube Video Downloader |
+| **API Key de OpenAI** | — | Obligatoria para todos los scripts |
+
+---
+
 ## ⚙️ Instalación
 
 ```bash
+# 1. Clonar el repositorio
 git clone https://github.com/juanfranciscofernandezherreros/streamlint.git
 cd streamlint
 
+# 2. Crear y activar entorno virtual
 python3 -m venv env
 source env/bin/activate   # Linux/macOS
 # .\env\Scripts\activate  # Windows
 
+# 3. Instalar dependencias
 pip install -r requirements.txt
+
+# 4. (Opcional) Instalar dependencias de módulos específicos
+pip install unstructured          # DirectoryLoader / UnstructuredHTMLLoader (13, 15)
+pip install youtube-transcript-api # YoutubeLoader (14)
+pip install selenium               # SeleniumURLLoader (17)
+pip install gitpython              # GitLoader (18)
+pip install langchain-google-community google-auth-oauthlib google-api-python-client  # GoogleDriveLoader (19)
 ```
 
 ---
 
-## 🔐 Configuración de OpenAI
+## 🔐 Configuración de la API Key de OpenAI
+
+### Opción 1 — Archivo `.env` (recomendado)
+
+```bash
+# Copiar la plantilla y rellenar tu clave
+cp .env.example .env
+```
+
+Edita el archivo `.env` y añade tu clave:
+
+```env
+OPENAI_API_KEY=sk-...
+```
+
+### Opción 2 — Variable de entorno
 
 ```bash
 export OPENAI_API_KEY="sk-..."    # Linux/macOS
 set OPENAI_API_KEY=sk-...         # Windows CMD
+$env:OPENAI_API_KEY="sk-..."      # Windows PowerShell
 ```
 
-En las aplicaciones Streamlit también puedes introducirla desde la barra lateral.
+> **Nota:** En las aplicaciones Streamlit (nivel 8) también puedes introducir la clave desde la barra lateral.
 
 ---
 
 ## ▶️ Ejecución
 
-### Scripts de niveles (01–31)
+> **Importante:** Todos los scripts deben ejecutarse desde la raíz del proyecto (`streamlint/`).
+
+### Scripts de niveles 1–6 (01–31): Fundamentos de LangChain
 
 ```bash
+# Nivel 1 — Prompts y plantillas
 python nivel_1_basico/01_prompt_templates.py
+python nivel_1_basico/02_chat_prompt_template.py
+python nivel_1_basico/03_rol_prompt_templates.py
+python nivel_1_basico/04_message_placeholders.py
+
+# Nivel 2 — Salida estructurada
+python nivel_2_intermedio/05_output_parser.py
+python nivel_2_intermedio/06_analisis_pydantic.py
+python nivel_2_intermedio/07_output_parser_parte2.py
+
+# Nivel 3 — Ejecución paralela
+python nivel_3_avanzado/08_analisis_sentimientos.py
+python nivel_3_avanzado/09_paralelo.py
+python nivel_3_avanzado/10_paralelo_batch.py
+
+# Nivel 4 — Document Loaders
+python nivel_4_document_loaders/11_read_from_website.py
 python nivel_4_document_loaders/12_read_pdf.py
-python nivel_6_retrievers/23_vector_stores.py
+python nivel_4_document_loaders/13_directory_loader.py
+python nivel_4_document_loaders/14_youtube_loader.py
+python nivel_4_document_loaders/15_unstructured_html_loader.py
+python nivel_4_document_loaders/16_csv_loader.py
+python nivel_4_document_loaders/17_selenium_url_loader.py
+python nivel_4_document_loaders/18_git_loader.py
+python nivel_4_document_loaders/19_google_drive.py
+
+# Nivel 5 — Text Splitters y Embeddings
+python nivel_5_text_splitters_y_embeddings/20_text_splitters_parte1.py
+python nivel_5_text_splitters_y_embeddings/21_text_splitters_parte2.py
+python nivel_5_text_splitters_y_embeddings/22_embeding_language.py
+
+# Nivel 6 — Retrievers (requieren datos en datos/contratos/ o FAISS index previo)
+python nivel_6_retrievers/23_vector_stores.py         # Crea el índice FAISS
+python nivel_6_retrievers/24_retriever_langchain.py    # Requiere índice FAISS previo
+python nivel_6_retrievers/25_multi_query_retriever.py
+python nivel_6_retrievers/26_contextual_compression_retriever.py
+python nivel_6_retrievers/27_ensemble_retriever.py
+python nivel_6_retrievers/28_parent_document_retriever.py
+python nivel_6_retrievers/29_self_query_retriever.py
+python nivel_6_retrievers/30_time_weighted_retriever.py
+python nivel_6_retrievers/31_advanced_retrievers.py
 ```
 
-### Scripts LangGraph (32–37)
+### Scripts LangGraph — Nivel 7 (32–37)
 
 ```bash
 python nivel_7_langgraph/32_primer_programa_langgraph.py
-python nivel_7_langgraph/33_procesador_reuniones.py
+python nivel_7_langgraph/33_procesador_reuniones.py          # Requiere datos/Simulacion_reunion.mp4
 python nivel_7_langgraph/34_control_flujo_langgraph.py
-python nivel_7_langgraph/35_procesador_reuniones_langgraph.py
+python nivel_7_langgraph/35_procesador_reuniones_langgraph.py # Interfaz gráfica con tkinter
 python nivel_7_langgraph/36_langgraph_condicional.py
 python nivel_7_langgraph/37_langgraph_checkpointer.py
 ```
 
-### Apps Streamlit (38–40)
+### Apps Streamlit — Nivel 8 (38–40)
 
 ```bash
-streamlit run nivel_8_aplicaciones/38_all_exercise.py
-streamlit run nivel_8_aplicaciones/39_streamlit_chatbox.py
-streamlit run nivel_8_aplicaciones/40_streamlit_quiz_exam.py
+streamlit run nivel_8_aplicaciones/38_all_exercise.py        # Todos los ejercicios integrados
+streamlit run nivel_8_aplicaciones/39_streamlit_chatbox.py   # Chatbot con persistencia
+streamlit run nivel_8_aplicaciones/40_streamlit_quiz_exam.py # Examen tipo test
 ```
 
-### Proyecto RAG legal
-
-```bash
-python nivel_9_proyectos_integradores/asistente_legal/ingest.py
-streamlit run nivel_9_proyectos_integradores/asistente_legal/app.py
-```
-
-### Proyecto Agente IA
-
-```bash
-cd nivel_9_proyectos_integradores/agente_ia
-python agent.py
-python agent.py --questions "¿Cuánto es 2+2?" "¿Qué día es hoy?"
-docker compose run --rm agente-ia
-```
-
-### Proyecto HelpDesk
-
-```bash
-python nivel_9_proyectos_integradores/helpdesk_system/setup_rag.py
-streamlit run nivel_9_proyectos_integradores/helpdesk_system/app.py
-```
-
-### Proyecto YouTube Video Downloader
-
-```bash
-# Requiere ffmpeg instalado en el sistema
-streamlit run nivel_9_proyectos_integradores/youtube_video_downloader/app.py
-```
-
-### Nivel 10 — Memoria y Evaluación (41–42)
+### Memoria y Evaluación — Nivel 10 (41–42)
 
 ```bash
 python nivel_10_memoria_y_evaluacion/41_conversacion_con_memoria.py
 python nivel_10_memoria_y_evaluacion/42_evaluacion_llm.py
+```
+
+### Proyecto RAG Legal (nivel 9)
+
+```bash
+# 1. Primero indexar los contratos (solo la primera vez)
+python nivel_9_proyectos_integradores/asistente_legal/ingest.py
+
+# 2. Lanzar la interfaz de chat
+streamlit run nivel_9_proyectos_integradores/asistente_legal/app.py
+```
+
+### Proyecto Agente IA (nivel 9)
+
+```bash
+cd nivel_9_proyectos_integradores/agente_ia
+
+# Modo interactivo (chat en terminal)
+python agent.py
+
+# Modo batch (procesar varias preguntas de golpe)
+python agent.py --questions "¿Cuánto es 2+2?" "¿Qué día es hoy?"
+
+# Con Docker
+docker compose run --rm agente-ia
+```
+
+### Proyecto HelpDesk (nivel 9)
+
+```bash
+# 1. Indexar la documentación de soporte (solo la primera vez)
+python nivel_9_proyectos_integradores/helpdesk_system/setup_rag.py
+
+# 2. Lanzar la interfaz de soporte
+streamlit run nivel_9_proyectos_integradores/helpdesk_system/app.py
+```
+
+### Proyecto YouTube Video Downloader (nivel 9)
+
+```bash
+# Requiere ffmpeg instalado en el sistema
+# Linux: sudo apt install ffmpeg
+# macOS: brew install ffmpeg
+# Windows: descargar desde https://ffmpeg.org
+
+streamlit run nivel_9_proyectos_integradores/youtube_video_downloader/app.py
 ```
 
 ---
@@ -437,7 +532,20 @@ Recursos y datos de ejemplo utilizados por los scripts:
 - El nivel 10 cubre **memoria conversacional** y **evaluación de LLMs**.
 - Los datos y recursos de ejemplo están centralizados en la carpeta `datos/`.
 - El archivo `22_embeding_language.py` conserva ese nombre por compatibilidad histórica.
-- Algunos scripts tienen rutas locales en el código; ajústalas según tu máquina.
+- Todas las rutas se calculan dinámicamente a partir de la ubicación de cada script.
+
+---
+
+## 🔧 Solución de problemas
+
+| Problema | Solución |
+|----------|----------|
+| `ModuleNotFoundError: No module named 'langchain_openai'` | Ejecuta `pip install -r requirements.txt` |
+| `openai.AuthenticationError` | Revisa que `OPENAI_API_KEY` esté configurada en `.env` o como variable de entorno |
+| `FileNotFoundError` en scripts del nivel 6 | Ejecuta primero `23_vector_stores.py` para crear el índice FAISS, y asegúrate de tener PDFs en `datos/contratos/` |
+| `ffmpeg not found` en YouTube Downloader | Instala ffmpeg: `sudo apt install ffmpeg` (Linux) / `brew install ffmpeg` (macOS) |
+| Error en `helpdesk_system` | Ejecuta primero `setup_rag.py` para indexar la documentación |
+| Error en `asistente_legal` | Ejecuta primero `ingest.py` para crear el índice FAISS |
 
 ---
 
