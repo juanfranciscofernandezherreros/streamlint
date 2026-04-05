@@ -1,5 +1,5 @@
 """
-38_conversacion_con_memoria.py
+41_conversacion_con_memoria.py
 ------------------------------
 Tipos de memoria conversacional en LangChain.
 
@@ -13,7 +13,7 @@ y los wrappers de memoria más habituales:
    tokens en conversaciones largas.
 
 Ejecutar:
-    python nivel_10_memoria_y_evaluacion/38_conversacion_con_memoria.py
+    python nivel_10_memoria_y_evaluacion/41_conversacion_con_memoria.py
 """
 
 from langchain_openai import ChatOpenAI

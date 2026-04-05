@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vector databases
+faiss_db/
+chroma_db/
+
+# Downloads (youtube_video_downloader)
+descargas/
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Jupyter
+.ipynb_checkpoints/
