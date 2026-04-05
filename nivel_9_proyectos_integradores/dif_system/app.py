@@ -1,20 +1,14 @@
 import streamlit as st
-import os
 
 # 1. Imports de LangChain (Estándar v1.x / 2026)
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.chains import create_retrieval_chain
-from langchain_core.chains.combine_documents import create_stuff_documents_chain
-
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
-from langchain_core.prompts import ChatPromptTemplate
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
 
 # --- CONFIGURACIÓN ---
-# Usamos la ruta que tienes en tu sistema Linux
-CHROMA_PATH = "/home/usuario/streamlint/nivel_9_proyectos_integradores/dif_system/chroma_db"
+from config import CHROMADB_PATH, EMBEDDINGS_MODEL
 
 st.set_page_config(page_title="DIF - Clases GAP", page_icon="💪")
 st.title("🏋️‍♂️ Asistente de Clases GAP (OpenAI)")
@@ -23,11 +17,11 @@ st.title("🏋️‍♂️ Asistente de Clases GAP (OpenAI)")
 @st.cache_resource
 def load_rag():
     # Inicializar embeddings y base de datos
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    embeddings = OpenAIEmbeddings(model=EMBEDDINGS_MODEL)
     
     # Cargamos la base de datos de Chroma
     db = Chroma(
-        persist_directory=CHROMA_PATH, 
+        persist_directory=CHROMADB_PATH, 
         embedding_function=embeddings
     )
     
