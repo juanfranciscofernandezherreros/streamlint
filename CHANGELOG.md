@@ -4,6 +4,22 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-05
 
+### multi chat working
+
+- **Author:** Juan Francisco
+- **Commit:** [`55d7907`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/55d7907a90fe3c229ec9034f5563b19fe43a6cf2)
+
+**Changed files (4):**
+
+- 🟡 `nivel_9_proyectos_integradores/multiuser_chat_system/memory_manager.py`
+- 🟢 `nivel_9_proyectos_integradores/multiuser_chat_system/users/andony/chats_meta.json`
+- 🟢 `nivel_9_proyectos_integradores/multiuser_chat_system/users/andony/chromadb/chroma.sqlite3`
+- 🟢 `nivel_9_proyectos_integradores/multiuser_chat_system/users/kiferhe/chromadb/chroma.sqlite3`
+
+---
+
+## 2026-04-05
+
 ### PR #29: Update Chroma imports to `import chromadb` + `from langchain_community import Chroma`
 
 - **Author:** Juan Francisco Fernandez Herreros
