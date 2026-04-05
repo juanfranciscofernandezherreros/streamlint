@@ -1,6 +1,6 @@
 # ⭐⭐⭐⭐⭐ Nivel 9 — Proyectos Integradores
 
-**5 proyectos completos** que combinan todas las técnicas aprendidas en los niveles anteriores: RAG, agentes, LangGraph, Streamlit y más.
+**6 proyectos completos** que combinan todas las técnicas aprendidas en los niveles anteriores: RAG, agentes, LangGraph, Streamlit, memoria avanzada y más.
 
 ## Proyectos
 
@@ -11,6 +11,7 @@
 | [**helpdesk_system/**](helpdesk_system/) | Sistema de soporte técnico con routing inteligente | LangGraph, RAG, Streamlit |
 | [**dif_system/**](dif_system/) | Asistente de horarios de gimnasio | RAG, FAISS, Streamlit |
 | [**youtube_video_downloader/**](youtube_video_downloader/) | Descargador de vídeos y audio de YouTube | Streamlit, yt-dlp, ffmpeg |
+| [**multiuser_chat_system/**](multiuser_chat_system/) | Chat multi-usuario con memoria avanzada | LangGraph, ChromaDB, SQLite, Streamlit |
 
 ## Asistente Legal
 
@@ -55,6 +56,22 @@ Aplicación web con Streamlit para descargar vídeos y audio de YouTube con yt-d
 ```bash
 streamlit run nivel_9_proyectos_integradores/youtube_video_downloader/app.py
 ```
+
+## Multi-User Chat System — Chat con Memoria Avanzada
+
+Sistema de chat multi-usuario con Streamlit que integra memoria vectorial (ChromaDB), persistencia en SQLite y gestión avanzada de conversaciones por usuario. Usa LangGraph para el flujo de estados.
+
+```bash
+streamlit run nivel_9_proyectos_integradores/multiuser_chat_system/app.py
+```
+
+| Archivo | Descripción |
+|---------|-------------|
+| `app.py` | Interfaz principal Streamlit multi-usuario |
+| `chatbot.py` | Motor de chat con LangGraph y memoria |
+| `memory_manager.py` | Gestor de memoria vectorial y persistencia |
+| `config.py` | Configuración del sistema |
+| `utils.py` | Utilidades de formato y validación |
 
 ## Navegación
 

@@ -14,7 +14,7 @@ Ruta progresiva para dominar el ecosistema LangChain:
 4. Crear embeddings, vector stores y retrievers.
 5. Diseñar workflows con **LangGraph** (grafos de estado).
 6. Construir aplicaciones completas en Streamlit.
-7. Implementar proyectos integradores reales (**RAG legal**, **Agente IA**, **HelpDesk** y **YouTube Downloader**).
+7. Implementar proyectos integradores reales (**RAG legal**, **Agente IA**, **HelpDesk**, **YouTube Downloader** y **Chat Multi-Usuario**).
 8. Gestionar memoria conversacional y evaluar salidas de modelos de lenguaje.
 
 ---
@@ -126,16 +126,28 @@ streamlint/
 │   │   ├── setup_rag.py
 │   │   └── docs/
 │   │       └── enero.json
-│   └── youtube_video_downloader/
-│       ├── README.md
+│   ├── youtube_video_downloader/
+│   │   ├── README.md
+│   │   ├── app.py
+│   │   ├── downloader.py
+│   │   └── requirements.txt
+│   └── multiuser_chat_system/
 │       ├── app.py
-│       ├── downloader.py
-│       └── requirements.txt
+│       ├── chatbot.py
+│       ├── config.py
+│       ├── memory_manager.py
+│       └── utils.py
 │
 ├── nivel_10_memoria_y_evaluacion/           # ⭐⭐⭐⭐⭐⭐ Nivel 10 — Calidad y persistencia
 │   ├── README.md
 │   ├── 41_conversacion_con_memoria.py
-│   └── 42_evaluacion_llm.py
+│   ├── 42_evaluacion_llm.py
+│   ├── 43_fundamentos_memoria.py
+│   ├── 44_fundamentos_memoria_langchain.py
+│   ├── 45_memoria_simple_langgraph.py
+│   ├── 46_memoria_ventana_deslizante.py
+│   ├── 47_memoria_persistence_langgraph.py
+│   └── 48_memoria_vectorial_langgraph.py
 │
 └── datos/                                   # 📁 Recursos y datos de ejemplo
     ├── README.md
@@ -148,7 +160,7 @@ streamlint/
 
 ---
 
-## 🧭 Ruta de aprendizaje completa (01 → 42 + proyectos)
+## 🧭 Ruta de aprendizaje completa (01 → 48 + proyectos)
 
 ### Nivel 1 — Básico (01–04): Prompts y plantillas
 
@@ -292,12 +304,41 @@ Aplicación Streamlit para descargar vídeos y audio de YouTube con yt-dlp. Sopo
 | `requirements.txt` | Dependencias del proyecto |
 | `README.md` | Documentación detallada |
 
-### Nivel 10 — Memoria y Evaluación (41–42): Calidad y persistencia
+#### 🔹 `dif_system/` — Asistente de Gimnasio
+
+Asistente para consultas de horarios de actividades de gimnasio. Usa RAG sobre un plan de clases en JSON con FAISS.
+
+| Archivo | Descripción |
+|---------|-------------|
+| `app.py` | Interfaz Streamlit del asistente |
+| `setup_rag.py` | Configuración e ingesta del plan de clases |
+| `config.py` | Configuración del sistema |
+| `docs/enero.json` | Plan maestro de entrenamiento |
+
+#### 🔹 `multiuser_chat_system/` — Chat Multi-Usuario con Memoria Avanzada
+
+Sistema de chat multi-usuario con Streamlit que integra memoria vectorial (ChromaDB), persistencia en SQLite y gestión de conversaciones por usuario con LangGraph.
+
+| Archivo | Descripción |
+|---------|-------------|
+| `app.py` | Interfaz principal Streamlit multi-usuario |
+| `chatbot.py` | Motor de chat con LangGraph y memoria |
+| `memory_manager.py` | Gestor de memoria vectorial y persistencia |
+| `config.py` | Configuración del sistema |
+| `utils.py` | Utilidades de formato y validación |
+
+### Nivel 10 — Memoria y Evaluación (41–48): Calidad y persistencia
 
 | # | Archivo | Descripción |
 |---|---------|-------------|
 | 41 | `41_conversacion_con_memoria.py` | Tres tipos de memoria: `Buffer`, `BufferWindow` y `SummaryMemory` |
 | 42 | `42_evaluacion_llm.py` | Evaluación con `CriteriaEvalChain`, `QAEvalChain` y criterios personalizados |
+| 43 | `43_fundamentos_memoria.py` | Chat básico en terminal sin framework de memoria |
+| 44 | `44_fundamentos_memoria_langchain.py` | Memoria con `RunnableWithMessageHistory` de LangChain |
+| 45 | `45_memoria_simple_langgraph.py` | Memoria simple con `MemorySaver` en LangGraph |
+| 46 | `46_memoria_ventana_deslizante.py` | Ventana deslizante con `trim_messages` en LangGraph |
+| 47 | `47_memoria_persistence_langgraph.py` | Persistencia en SQLite con `SqliteSaver` |
+| 48 | `48_memoria_vectorial_langgraph.py` | Memoria vectorial con ChromaDB y embeddings |
 
 ---
 
@@ -328,6 +369,8 @@ Aplicación Streamlit para descargar vídeos y audio de YouTube con yt-dlp. Sopo
 | `rank_bm25` | BM25Retriever |
 | `duckduckgo-search` | Búsqueda web (Agente IA) |
 | `yt-dlp` | Descarga de vídeos YouTube |
+| `chromadb` | Memoria vectorial (Multi-User Chat, scripts 48) |
+| `langgraph` | Persistencia SQLite (scripts 45–48, Multi-User Chat) |
 
 ### Opcionales (según módulo)
 
@@ -474,11 +517,17 @@ streamlit run nivel_8_aplicaciones/39_streamlit_chatbox.py   # Chatbot con persi
 streamlit run nivel_8_aplicaciones/40_streamlit_quiz_exam.py # Examen tipo test
 ```
 
-### Memoria y Evaluación — Nivel 10 (41–42)
+### Memoria y Evaluación — Nivel 10 (41–48)
 
 ```bash
 python nivel_10_memoria_y_evaluacion/41_conversacion_con_memoria.py
 python nivel_10_memoria_y_evaluacion/42_evaluacion_llm.py
+python nivel_10_memoria_y_evaluacion/43_fundamentos_memoria.py
+python nivel_10_memoria_y_evaluacion/44_fundamentos_memoria_langchain.py
+python nivel_10_memoria_y_evaluacion/45_memoria_simple_langgraph.py
+python nivel_10_memoria_y_evaluacion/46_memoria_ventana_deslizante.py
+python nivel_10_memoria_y_evaluacion/47_memoria_persistence_langgraph.py
+python nivel_10_memoria_y_evaluacion/48_memoria_vectorial_langgraph.py
 ```
 
 ### Proyecto RAG Legal (nivel 9)
@@ -537,6 +586,12 @@ python nivel_9_proyectos_integradores/dif_system/setup_rag.py
 streamlit run nivel_9_proyectos_integradores/dif_system/app.py
 ```
 
+### Proyecto Multi-User Chat System (nivel 9)
+
+```bash
+streamlit run nivel_9_proyectos_integradores/multiuser_chat_system/app.py
+```
+
 Preguntas de ejemplo que puede responder:
 
 - ¿Qué clases hay el 21 de enero?
@@ -570,12 +625,12 @@ Recursos y datos de ejemplo utilizados por los scripts:
 
 ## 📌 Notas de organización
 
-- La secuencia oficial de aprendizaje es **01 → 42**, seguida de los proyectos integradores.
+- La secuencia oficial de aprendizaje es **01 → 48**, seguida de los proyectos integradores.
 - Los niveles 1–6 cubren fundamentos de LangChain puro.
 - El nivel 7 introduce **LangGraph** (grafos de estado, workflows y checkpointers).
 - El nivel 8 agrupa las aplicaciones completas con **Streamlit**.
-- El nivel 9 contiene **4 proyectos integradores** independientes y completos.
-- El nivel 10 cubre **memoria conversacional** y **evaluación de LLMs**.
+- El nivel 9 contiene **6 proyectos integradores** independientes y completos.
+- El nivel 10 cubre **memoria conversacional** (fundamentos, LangChain, LangGraph, ventana deslizante, persistencia SQLite, memoria vectorial) y **evaluación de LLMs**.
 - Los datos y recursos de ejemplo están centralizados en la carpeta `datos/`.
 - El archivo `22_embeding_language.py` conserva ese nombre por compatibilidad histórica.
 - Todas las rutas se calculan dinámicamente a partir de la ubicación de cada script.
@@ -609,7 +664,7 @@ Este repositorio está organizado en **10 niveles de dificultad creciente**:
 | 6 | Retrievers | 23–31 |
 | 7 | LangGraph | 32–37 |
 | 8 | Aplicaciones Streamlit | 38–40 |
-| 9 | Proyectos integradores | Asistente Legal, Agente IA, HelpDesk, YouTube Downloader |
-| 10 | Memoria y Evaluación | 41–42 |
+| 9 | Proyectos integradores | Asistente Legal, Agente IA, HelpDesk, YouTube Downloader, DIF System, Multi-User Chat |
+| 10 | Memoria y Evaluación | 41–48 |
 
 Todo el stack, dependencias y formas de ejecución están centralizados en este README.
