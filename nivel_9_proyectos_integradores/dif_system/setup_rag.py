@@ -1,4 +1,5 @@
 import hashlib
+import json
 from typing import List
 from pathlib import Path
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
@@ -7,11 +8,12 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
-from config import * 
+from config import *
+
 
 class DocumentProcessor:
     """Procesador de documentos para el sistema RAG."""
-    
+
     def __init__(self, docs_path: str = "docs", chroma_path: str = "./chroma_db"):
         self.docs_path = Path(docs_path)
         self.chroma_path = Path(chroma_path)
@@ -20,33 +22,131 @@ class DocumentProcessor:
             chunk_size=1000,
             chunk_overlap=200,
             length_function=len,
-            separators=["\n\n", "\n", ".", "!", "?", ",", " ", ""]
+            separators=["\n\n", "\n", ".", "!", "?", ",", " ", ""],
         )
-        
+
     def load_documents(self) -> List[Document]:
-        """Carga documentos markdown del directorio docs."""
+        """Carga documentos markdown y JSON del directorio docs."""
         print(f"📚 Cargando documentos desde {self.docs_path}")
-        
+
+        documents: List[Document] = []
+
         # Cargar archivos markdown
-        loader = DirectoryLoader(
-            str(self.docs_path),
-            glob="*.md",
-            loader_cls=TextLoader,
-            loader_kwargs={"encoding": "utf-8"}
-        )
-        
-        documents = loader.load()
-        
+        md_files = list(self.docs_path.glob("*.md"))
+        if md_files:
+            loader = DirectoryLoader(
+                str(self.docs_path),
+                glob="*.md",
+                loader_cls=TextLoader,
+                loader_kwargs={"encoding": "utf-8"},
+            )
+            documents.extend(loader.load())
+
+        # Cargar archivos JSON
+        json_files = list(self.docs_path.glob("*.json"))
+        for json_file in json_files:
+            print(f"📄 Procesando JSON: {json_file.name}")
+            json_docs = self._load_json_file(json_file)
+            documents.extend(json_docs)
+
         # Enriquecer metadatos
         for doc in documents:
-            filename = Path(doc.metadata["source"]).stem
-            doc.metadata.update({
-                "filename": filename,
-                "doc_type": self._get_doc_type(filename),
-                "doc_id": self._generate_doc_id(doc.page_content)
-            })
-        
+            source = doc.metadata.get("source", "")
+            filename = Path(source).stem if source else "unknown"
+            doc.metadata.setdefault("filename", filename)
+            doc.metadata.setdefault("doc_type", self._get_doc_type(filename))
+            doc.metadata.setdefault("doc_id", self._generate_doc_id(doc.page_content))
+
         print(f"✅ Cargados {len(documents)} documentos")
+        return documents
+
+    def _load_json_file(self, filepath: Path) -> List[Document]:
+        """Convierte un archivo JSON estructurado en documentos de texto."""
+        with open(filepath, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+
+        source = str(filepath)
+        documents: List[Document] = []
+
+        plan = data.get("plan_maestro", data)
+
+        mes = plan.get("mes", "")
+        gimnasio = plan.get("gimnasio", "")
+        base_meta = {"source": source, "mes": mes, "gimnasio": gimnasio}
+
+        # --- Calendario diario ---
+        for entry in plan.get("calendario_diario", []):
+            fecha = entry.get("fecha", "")
+            lines = [f"Fecha: {fecha}"]
+            for sala in ("sala_a", "sala_b", "sala_c"):
+                actividad = entry.get(sala)
+                if actividad:
+                    sala_label = sala.replace("_", " ").title()
+                    lines.append(f"  {sala_label}: {actividad}")
+            obs = entry.get("observaciones")
+            if obs:
+                lines.append(f"  Observaciones: {obs}")
+
+            text = (
+                f"Plan {gimnasio} - {mes}\n"
+                f"Calendario diario\n" + "\n".join(lines)
+            )
+            documents.append(
+                Document(
+                    page_content=text,
+                    metadata={
+                        **base_meta,
+                        "doc_type": "calendario",
+                        "fecha": fecha,
+                        "filename": Path(source).stem,
+                    },
+                )
+            )
+
+        # --- Glosario de modalidades ---
+        for mod in plan.get("glosario_modalidades", []):
+            nombre = mod.get("nombre", "")
+            nombre_completo = mod.get("nombre_completo", "")
+            header = f"{nombre}" + (f" ({nombre_completo})" if nombre_completo else "")
+            text = (
+                f"Modalidad: {header}\n"
+                f"Tipo: {mod.get('tipo', '')}\n"
+                f"Detalles: {mod.get('detalles', '')}\n"
+                f"Duración: {mod.get('duracion', '')}"
+            )
+            documents.append(
+                Document(
+                    page_content=text,
+                    metadata={
+                        **base_meta,
+                        "doc_type": "modalidad",
+                        "modalidad": nombre,
+                        "filename": Path(source).stem,
+                    },
+                )
+            )
+
+        # --- Actividades fijas Sala C ---
+        for act in plan.get("actividades_fijas_sala_c", []):
+            text = (
+                f"Actividad fija Sala C - {gimnasio} {mes}\n"
+                f"Actividad: {act.get('actividad', '')}\n"
+                f"Días: {act.get('dias', '')}\n"
+                f"Horario: {act.get('horario', '')}"
+            )
+            documents.append(
+                Document(
+                    page_content=text,
+                    metadata={
+                        **base_meta,
+                        "doc_type": "actividad_fija",
+                        "actividad": act.get("actividad", ""),
+                        "filename": Path(source).stem,
+                    },
+                )
+            )
+
+        print(f"  ✅ Generados {len(documents)} documentos desde {filepath.name}")
         return documents
     
     def _get_doc_type(self, filename: str) -> str:
@@ -166,12 +266,12 @@ def main():
     vectorstore = processor.setup_rag_system(force_rebuild=True)
     
     if vectorstore:
-        # Probar búsquedas
+        # Probar búsquedas relevantes al DIF
         test_queries = [
-            "resetear contraseña",
-            "error 500",
-            "cancelar suscripción",
-            "aplicación lenta"
+            "¿Qué clase de GAP hay en enero?",
+            "¿Qué actividad hay el 21 de enero en la Sala A?",
+            "¿Qué es la modalidad Strong?",
+            "¿Cuándo hay Pilates?",
         ]
         
         for query in test_queries:

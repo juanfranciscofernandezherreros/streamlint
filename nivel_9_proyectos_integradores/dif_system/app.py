@@ -1,18 +1,14 @@
 import streamlit as st
-import os
 
-# 1. Imports de LangChain (Estándar 2026)
+# 1. Imports de LangChain
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_classic.chains import create_retrieval_chain
-from langchain_classic.chains.combine_documents import create_stuff_documents_chain
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
 
-# --- CONFIGURACIÓN DE RUTAS ---
-# Basado en tu salida de terminal
-BASE_DIR = "/home/usuario/streamlint/nivel_9_proyectos_integradores/dif_system"
-CHROMADB_PATH = os.path.join(BASE_DIR, "chroma_db")
-EMBEDDINGS_MODEL = "text-embedding-3-small" # Ajustar si usaste otro en setup_rag.py
+# --- CONFIGURACIÓN DE RUTAS (dinámicas desde config.py) ---
+from config import CHROMADB_PATH, EMBEDDINGS_MODEL
 
 # Configuración de página
 st.set_page_config(page_title="DIF - Horarios GAP", page_icon="🏋️‍♂️")
@@ -25,8 +21,9 @@ st.markdown("Consulta horarios de **GAP**, actividades en salas y el plan de ent
 
 @st.cache_resource
 def load_rag_system():
+    from pathlib import Path
     # Validar que existe la DB
-    if not os.path.exists(CHROMADB_PATH):
+    if not Path(CHROMADB_PATH).exists():
         st.error(f"No se encontró la base de datos en: {CHROMADB_PATH}")
         st.info("Asegúrate de que setup_rag.py se ejecutó correctamente.")
         st.stop()
