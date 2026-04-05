@@ -21,7 +21,7 @@ rank_bm25                 # BM25Retriever (27_ensemble_retriever.py)
 
 # Proyectos integradores — nivel_9
 duckduckgo-search         # Agente IA — búsqueda web
-yt-dlp                    # YouTube Video Downloader
+yt-dlp>=2026.02.21           # YouTube Video Downloader (patched CVE)
 
 # Opcional — instalar solo si se usan los loaders correspondientes
 # pip install unstructured          # DirectoryLoader/UnstructuredHTMLLoader (13, 15)
