@@ -29,22 +29,26 @@ streamlint/
 ├── .gitignore
 │
 ├── nivel_1_basico/                          # ⭐ Nivel 1 — Prompts y plantillas
+│   ├── README.md
 │   ├── 01_prompt_templates.py
 │   ├── 02_chat_prompt_template.py
 │   ├── 03_rol_prompt_templates.py
 │   └── 04_message_placeholders.py
 │
 ├── nivel_2_intermedio/                      # ⭐⭐ Nivel 2 — Salida estructurada
+│   ├── README.md
 │   ├── 05_output_parser.py
 │   ├── 06_analisis_pydantic.py
 │   └── 07_output_parser_parte2.py
 │
 ├── nivel_3_avanzado/                        # ⭐⭐⭐ Nivel 3 — Ejecución paralela
+│   ├── README.md
 │   ├── 08_analisis_sentimientos.py
 │   ├── 09_paralelo.py
 │   └── 10_paralelo_batch.py
 │
 ├── nivel_4_document_loaders/                # ⭐⭐⭐ Nivel 4 — Carga de documentos
+│   ├── README.md
 │   ├── 11_read_from_website.py
 │   ├── 12_read_pdf.py
 │   ├── 13_directory_loader.py
@@ -56,11 +60,13 @@ streamlint/
 │   └── 19_google_drive.py
 │
 ├── nivel_5_text_splitters_y_embeddings/     # ⭐⭐⭐⭐ Nivel 5 — Procesamiento de texto
+│   ├── README.md
 │   ├── 20_text_splitters_parte1.py
 │   ├── 21_text_splitters_parte2.py
 │   └── 22_embeding_language.py
 │
 ├── nivel_6_retrievers/                      # ⭐⭐⭐⭐ Nivel 6 — Recuperación de información
+│   ├── README.md
 │   ├── 23_vector_stores.py
 │   ├── 24_retriever_langchain.py
 │   ├── 25_multi_query_retriever.py
@@ -72,6 +78,7 @@ streamlint/
 │   └── 31_advanced_retrievers.py
 │
 ├── nivel_7_langgraph/                       # ⭐⭐⭐⭐⭐ Nivel 7 — Grafos de estado
+│   ├── README.md
 │   ├── 32_primer_programa_langgraph.py
 │   ├── 33_procesador_reuniones.py
 │   ├── 34_control_flujo_langgraph.py
@@ -80,18 +87,22 @@ streamlint/
 │   └── 37_langgraph_checkpointer.py
 │
 ├── nivel_8_aplicaciones/                    # ⭐⭐⭐⭐⭐ Nivel 8 — Apps con Streamlit
+│   ├── README.md
 │   ├── 38_all_exercise.py
 │   ├── 39_streamlit_chatbox.py
 │   └── 40_streamlit_quiz_exam.py
 │
 ├── nivel_9_proyectos_integradores/          # ⭐⭐⭐⭐⭐ Nivel 9 — Proyectos completos
+│   ├── README.md
 │   ├── asistente_legal/
+│   │   ├── README.md
 │   │   ├── app.py
 │   │   ├── config.py
 │   │   ├── ingest.py
 │   │   ├── prompt.py
 │   │   └── rag_system.py
 │   ├── agente_ia/
+│   │   ├── README.md
 │   │   ├── agent.py
 │   │   ├── ask_agent.py
 │   │   ├── tools.py
@@ -101,6 +112,7 @@ streamlint/
 │   │   ├── docs/
 │   │   └── tests/
 │   ├── helpdesk_system/
+│   │   ├── README.md
 │   │   ├── app.py
 │   │   ├── config.py
 │   │   ├── graph.py
@@ -108,22 +120,25 @@ streamlint/
 │   │   ├── setup_rag.py
 │   │   └── docs/
 │   ├── dif_system/
+│   │   ├── README.md
 │   │   ├── app.py
 │   │   ├── config.py
 │   │   ├── setup_rag.py
 │   │   └── docs/
 │   │       └── enero.json
 │   └── youtube_video_downloader/
+│       ├── README.md
 │       ├── app.py
 │       ├── downloader.py
-│       ├── requirements.txt
-│       └── README.md
+│       └── requirements.txt
 │
 ├── nivel_10_memoria_y_evaluacion/           # ⭐⭐⭐⭐⭐⭐ Nivel 10 — Calidad y persistencia
+│   ├── README.md
 │   ├── 41_conversacion_con_memoria.py
 │   └── 42_evaluacion_llm.py
 │
 └── datos/                                   # 📁 Recursos y datos de ejemplo
+    ├── README.md
     ├── contratos/              # PDFs de contratos para RAG/retrievers
     ├── sesiones/               # Conversaciones persistidas en JSON
     ├── historial_chat.json     # Historial de ejemplo
