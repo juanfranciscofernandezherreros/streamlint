@@ -1,6 +1,6 @@
 # Streamlint
 
-Proyecto de aprendizaje práctico de **LangChain + LangGraph + OpenAI + Streamlit**, organizado en **9 niveles de dificultad** (de básico a proyectos integradores).
+Proyecto de aprendizaje práctico de **LangChain + LangGraph + OpenAI + Streamlit**, organizado en **10 niveles de dificultad** (de básico a proyectos integradores).
 
 ---
 
@@ -15,6 +15,7 @@ Este repositorio está organizado como una ruta progresiva para:
 5. Diseñar workflows con **LangGraph** (grafos de estado).
 6. Construir aplicaciones completas en Streamlit.
 7. Implementar proyectos integradores reales (**RAG legal** y **Agente IA con herramientas**).
+8. Gestionar memoria conversacional y evaluar salidas de modelos de lenguaje.
 
 ---
 
@@ -71,11 +72,14 @@ streamlint/
 │
 ├── nivel_7_langgraph/                       # ⭐⭐⭐⭐⭐ Dificultad 7
 │   ├── 32_primer_programa_langgraph.py
-│   └── 33_procesador_reuniones.py
+│   ├── 33_procesador_reuniones.py
+│   ├── 36_langgraph_condicional.py
+│   └── 37_langgraph_checkpointer.py
 │
 ├── nivel_8_aplicaciones/                    # ⭐⭐⭐⭐⭐ Dificultad 8
 │   ├── 34_all_exercise.py
-│   └── 35_streamlit_chatbox.py
+│   ├── 35_streamlit_chatbox.py
+│   └── 40_streamlit_quiz_exam.py
 │
 ├── nivel_9_proyectos_integradores/          # ⭐⭐⭐⭐⭐ Dificultad 9
 │   ├── asistente_legal/
@@ -94,6 +98,10 @@ streamlint/
 │       ├── docs/
 │       └── tests/
 │
+├── nivel_10_memoria_y_evaluacion/           # ⭐⭐⭐⭐⭐⭐ Dificultad 10
+│   ├── 38_conversacion_con_memoria.py
+│   └── 39_evaluacion_llm.py
+│
 ├── contratos/                # PDFs de contratos para ejemplos RAG/retrievers
 ├── sesiones/                 # Conversaciones persistidas en JSON
 ├── faiss_db/                 # Base vectorial local (FAISS)
@@ -103,7 +111,7 @@ streamlint/
 
 ---
 
-## 🧭 Ruta de aprendizaje completa (01 → 35 + proyectos)
+## 🧭 Ruta de aprendizaje completa (01 → 40 + proyectos)
 
 ### Nivel 1 — Básico (01–04): Prompts y plantillas
 
@@ -129,15 +137,18 @@ Estrategias de splitting y generación de embeddings con modelos de lenguaje.
 
 Vector stores, multi-query, compresión contextual, ensemble, parent document, self-query, time-weighted y MMR.
 
-### Nivel 7 — LangGraph (32–33): Grafos de estado
+### Nivel 7 — LangGraph (32–33, 36–37): Grafos de estado
 
 - `32_primer_programa_langgraph.py` — Primer grafo de estado (StateGraph) con nodos secuenciales.
 - `33_procesador_reuniones.py` — Workflow completo: transcripción con Whisper, extracción de participantes/temas/acciones y generación de minutas.
+- `36_langgraph_condicional.py` — Edges condicionales avanzados: clasificación de sentimiento con routing a tres ramas especializadas.
+- `37_langgraph_checkpointer.py` — Persistencia de estado entre turnos con `MemorySaver`; conversación multi-turno sin gestionar el historial manualmente.
 
-### Nivel 8 — Aplicaciones (34–35): Apps con Streamlit
+### Nivel 8 — Aplicaciones (34–35, 40): Apps con Streamlit
 
 - `34_all_exercise.py` — Aplicación que integra todos los ejercicios del curso.
 - `35_streamlit_chatbox.py` — Chatbot completo con interfaz Streamlit.
+- `40_streamlit_quiz_exam.py` — Examen tipo test con radio buttons, puntuación y revisión de respuestas.
 
 ### Nivel 9 — Proyectos integradores: Sistemas completos
 
@@ -148,6 +159,11 @@ Proyecto RAG completo con ingesta de contratos PDF a FAISS, cadena de recuperaci
 #### `agente_ia/` — Agente conversacional con herramientas
 
 Agente inteligente con LangChain que busca en internet (DuckDuckGo), resuelve cálculos, ejecuta código Python y selecciona herramientas automáticamente. Incluye Docker, tests y documentación.
+
+### Nivel 10 — Memoria y Evaluación (38–39): Calidad y persistencia
+
+- `38_conversacion_con_memoria.py` — Los tres tipos principales de memoria conversacional: `ConversationBufferMemory` (historial completo), `ConversationBufferWindowMemory` (ventana deslizante) y `ConversationSummaryMemory` (resumen automático con LLM).
+- `39_evaluacion_llm.py` — Evaluación de salidas de modelos con `CriteriaEvalChain` (criterios estándar), `QAEvalChain` (comparación con ground truth) y criterios personalizados.
 
 ---
 
@@ -222,18 +238,21 @@ python nivel_4_document_loaders/12_read_pdf.py
 python nivel_6_retrievers/23_vector_stores.py
 ```
 
-### Scripts LangGraph (32–33)
+### Scripts LangGraph (32–33, 36–37)
 
 ```bash
 python nivel_7_langgraph/32_primer_programa_langgraph.py
 python nivel_7_langgraph/33_procesador_reuniones.py
+python nivel_7_langgraph/36_langgraph_condicional.py
+python nivel_7_langgraph/37_langgraph_checkpointer.py
 ```
 
-### Apps Streamlit del curso (34–35)
+### Apps Streamlit del curso (34–35, 40)
 
 ```bash
 streamlit run nivel_8_aplicaciones/34_all_exercise.py
 streamlit run nivel_8_aplicaciones/35_streamlit_chatbox.py
+streamlit run nivel_8_aplicaciones/40_streamlit_quiz_exam.py
 ```
 
 ### Proyecto RAG legal
@@ -261,15 +280,23 @@ python agent.py --questions "¿Cuánto es 2+2?" "¿Qué día es hoy?"
 docker compose run --rm agente-ia
 ```
 
+### Nivel 10 — Memoria y Evaluación (38–39)
+
+```bash
+python nivel_10_memoria_y_evaluacion/38_conversacion_con_memoria.py
+python nivel_10_memoria_y_evaluacion/39_evaluacion_llm.py
+```
+
 ---
 
 ## 📌 Notas de organización importantes
 
-- La secuencia oficial de aprendizaje es **01 → 35**, seguida de los proyectos integradores.
+- La secuencia oficial de aprendizaje es **01 → 40**, seguida de los proyectos integradores.
 - Los niveles 1–6 cubren fundamentos de LangChain puro.
-- El nivel 7 introduce **LangGraph** (grafos de estado y workflows).
+- El nivel 7 introduce **LangGraph** (grafos de estado, workflows y checkpointers).
 - El nivel 8 agrupa las aplicaciones completas con **Streamlit**.
 - El nivel 9 contiene **proyectos integradores** independientes y completos.
+- El nivel 10 cubre **memoria conversacional** y **evaluación de LLMs**.
 - El archivo `22_embeding_language.py` conserva ese nombre por compatibilidad histórica del repositorio.
 - Algunos scripts tienen rutas absolutas locales en el código; si ejecutas en otra máquina, ajusta esas rutas.
 - `faiss_db/` y `sesiones/` son datos de ejecución/persistencia del proyecto.
@@ -278,11 +305,12 @@ docker compose run --rm agente-ia
 
 ## ✅ Resumen
 
-Este repositorio queda organizado en **9 niveles de dificultad creciente**:
+Este repositorio queda organizado en **10 niveles de dificultad creciente**:
 
 1. **Niveles 1–6:** Curso progresivo de LangChain (prompts → retrievers).
-2. **Nivel 7:** Introducción a LangGraph (grafos de estado).
+2. **Nivel 7:** LangGraph — grafos de estado, edges condicionales y checkpointers.
 3. **Nivel 8:** Aplicaciones completas con Streamlit.
 4. **Nivel 9:** Proyectos integradores reales (RAG legal + Agente IA).
+5. **Nivel 10:** Memoria conversacional y evaluación de salidas LLM.
 
 Todo el stack, dependencias y formas de ejecución están centralizados en este README.
