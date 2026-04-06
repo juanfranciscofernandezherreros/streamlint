@@ -1,15 +1,39 @@
+"""
+57_memory_manager.py
+--------------------
+Gestor de memoria híbrido que combina tres estrategias en una sola clase.
+
+Este módulo integra en un único ``MemoryManager`` las tres estrategias
+de memoria más habituales en agentes conversacionales:
+
+1. **SlidingWindowMemory** — ventana deslizante de los últimos N mensajes.
+2. **SummaryMemory**       — resumen progresivo generado por el LLM.
+3. **VectorMemory**        — búsqueda semántica sobre el historial con ChromaDB.
+
+El método ``get_context()`` construye el contexto óptimo para cada turno
+combinando las tres fuentes y recortando al límite de tokens configurado.
+
+Ejecutar:
+    python nivel_10_memoria_y_evaluacion/57_memory_manager.py
+"""
+
 from typing import List, Dict
 from collections import deque
 import os
+
+from dotenv import load_dotenv
 
 # =========================
 # LLM + Embeddings
 # =========================
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+import chromadb
 from langchain_community.vectorstores import Chroma
 
 import tiktoken
+
+load_dotenv()
 
 
 # =========================
@@ -172,8 +196,6 @@ class MemoryManager:
 # =========================
 
 if __name__ == "__main__":
-    os.environ["OPENAI_API_KEY"] = "TU_API_KEY"
-
     mm = MemoryManager(max_tokens=800, window_size=6)
 
     # Simulación conversación

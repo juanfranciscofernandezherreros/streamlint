@@ -7,7 +7,7 @@
 ![LangGraph](https://img.shields.io/badge/LangGraph-StateGraph-orange)
 ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-412991?logo=openai&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-apps-FF4B4B?logo=streamlit&logoColor=white)
-![Scripts](https://img.shields.io/badge/Scripts-56-brightgreen)
+![Scripts](https://img.shields.io/badge/Scripts-57-brightgreen)
 ![Proyectos](https://img.shields.io/badge/Proyectos%20integradores-6-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
@@ -15,7 +15,7 @@
 
 ## ✨ Highlights del proyecto
 
-| 🔢 56 scripts | 🧠 6 proyectos completos | 📚 10 niveles de dificultad |
+| 🔢 57 scripts | 🧠 6 proyectos completos | 📚 10 niveles de dificultad |
 |---|---|---|
 | Cubriendo prompts, RAG, LangGraph, streaming y tool calling | RAG Legal, Agente IA, HelpDesk, YouTube Downloader, Gym Assistant y Chat Multi-Usuario | Desde `PromptTemplate` hasta agentes con herramientas y memoria vectorial |
 
@@ -173,7 +173,8 @@ streamlint/
 │   ├── 53_memoria_ventana_adaptativa.py
 │   ├── 54_memoria_prioridad_contexto.py
 │   ├── 55_streaming_responses.py
-│   └── 56_tool_calling.py
+│   ├── 56_tool_calling.py
+│   └── 57_memory_manager.py
 │
 └── datos/                                   # 📁 Recursos y datos de ejemplo
     ├── README.md
@@ -353,7 +354,7 @@ Sistema de chat multi-usuario con Streamlit que integra memoria vectorial (Chrom
 | `config.py` | Configuración del sistema |
 | `utils.py` | Utilidades de formato y validación |
 
-### Nivel 10 — Memoria, Evaluación y Técnicas Avanzadas (41–56)
+### Nivel 10 — Memoria, Evaluación y Técnicas Avanzadas (41–57)
 
 | # | Archivo | Descripción |
 |---|---------|-------------|
@@ -373,6 +374,7 @@ Sistema de chat multi-usuario con Streamlit que integra memoria vectorial (Chrom
 | 54 | `54_memoria_prioridad_contexto.py` | Prioridad de contexto: retiene mensajes por relevancia semántica |
 | 55 | `55_streaming_responses.py` | Streaming en tiempo real: `stream()`, `astream()`, `astream_events()` y LangGraph |
 | 56 | `56_tool_calling.py` | Tool calling: `@tool`, `bind_tools()`, agente ReAct y `with_structured_output()` |
+| 57 | `57_memory_manager.py` | Gestor de memoria híbrido: ventana deslizante + resumen LLM + memoria vectorial |
 
 ---
 
