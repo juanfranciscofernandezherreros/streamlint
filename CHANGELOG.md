@@ -4,6 +4,21 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-06
 
+### Merge pull request #32 from juanfranciscofernandezherreros/copilot/organize-project-and-add-comments
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`3750b8a`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/3750b8ad23c22f15bebc1ff581face99ef12f957)
+
+**Changed files (3):**
+
+- 🔴 `init_database_vector.py`
+- 🟢 `nivel_6_retrievers/23b_chroma_vector_store.py`
+- 🟡 `nivel_6_retrievers/README.md`
+
+---
+
+## 2026-04-06
+
 ### Initialize vector database and add search functionality
 
 - **Author:** Juan Francisco Fernandez Herreros
