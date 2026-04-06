@@ -1,7 +1,7 @@
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
-from langchain.retrievers.multi_query import MultiQueryRetriever
+from langchain_classic.retrievers import MultiQueryRetriever
 import os
 
 # 1. Cargamos la base de datos FAISS desde disco

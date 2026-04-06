@@ -36,7 +36,7 @@ for i, doc in enumerate(mmr_results, start=1):
 # 3. Retrieval con Reranking usando CohereRerank (requiere COHERE_API_KEY)
 # Descomenta este bloque si tienes una API Key de Cohere configurada
 #
-# from langchain.retrievers import ContextualCompressionRetriever
+# from langchain_classic.retrievers import ContextualCompressionRetriever
 # from langchain_cohere import CohereRerank
 # import os
 #

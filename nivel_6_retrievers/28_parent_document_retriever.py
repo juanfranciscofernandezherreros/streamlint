@@ -1,6 +1,6 @@
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import OpenAIEmbeddings
-from langchain.retrievers import ParentDocumentRetriever
+from langchain_classic.retrievers import ParentDocumentRetriever
 from langchain_core.stores import InMemoryStore
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFDirectoryLoader
