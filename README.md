@@ -1,6 +1,23 @@
 # Streamlint
 
-Proyecto de aprendizaje práctico de **LangChain + LangGraph + OpenAI + Streamlit**, organizado en **10 niveles de dificultad** (de básico a proyectos integradores).
+> Ruta de aprendizaje práctica de **LangChain · LangGraph · OpenAI · Streamlit**, estructurada en **10 niveles de dificultad creciente** — desde las bases de los prompts hasta proyectos completos con RAG, agentes, memoria avanzada y streaming.
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-0.3%2B-green?logo=chainlink&logoColor=white)
+![LangGraph](https://img.shields.io/badge/LangGraph-StateGraph-orange)
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-412991?logo=openai&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-apps-FF4B4B?logo=streamlit&logoColor=white)
+![Scripts](https://img.shields.io/badge/Scripts-56-brightgreen)
+![Proyectos](https://img.shields.io/badge/Proyectos%20integradores-6-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+---
+
+## ✨ Highlights del proyecto
+
+| 🔢 56 scripts | 🧠 6 proyectos completos | 📚 10 niveles de dificultad |
+|---|---|---|
+| Cubriendo prompts, RAG, LangGraph, streaming y tool calling | RAG Legal, Agente IA, HelpDesk, YouTube Downloader, Gym Assistant y Chat Multi-Usuario | Desde `PromptTemplate` hasta agentes con herramientas y memoria vectorial |
 
 ---
 
@@ -16,6 +33,7 @@ Ruta progresiva para dominar el ecosistema LangChain:
 6. Construir aplicaciones completas en Streamlit.
 7. Implementar proyectos integradores reales (**RAG legal**, **Agente IA**, **HelpDesk**, **YouTube Downloader** y **Chat Multi-Usuario**).
 8. Gestionar memoria conversacional y evaluar salidas de modelos de lenguaje.
+9. Dominar **streaming** de respuestas en tiempo real y **tool calling** con OpenAI.
 
 ---
 
@@ -138,7 +156,7 @@ streamlint/
 │       ├── memory_manager.py
 │       └── utils.py
 │
-├── nivel_10_memoria_y_evaluacion/           # ⭐⭐⭐⭐⭐⭐ Nivel 10 — Calidad y persistencia
+├── nivel_10_memoria_y_evaluacion/           # ⭐⭐⭐⭐⭐⭐ Nivel 10 — Memoria, evaluación y técnicas avanzadas
 │   ├── README.md
 │   ├── 41_conversacion_con_memoria.py
 │   ├── 42_evaluacion_llm.py
@@ -153,7 +171,9 @@ streamlint/
 │   ├── 51_memoria_limite_tokens.py
 │   ├── 52_memoria_hibrida_tipo_mensaje.py
 │   ├── 53_memoria_ventana_adaptativa.py
-│   └── 54_memoria_prioridad_contexto.py
+│   ├── 54_memoria_prioridad_contexto.py
+│   ├── 55_streaming_responses.py
+│   └── 56_tool_calling.py
 │
 └── datos/                                   # 📁 Recursos y datos de ejemplo
     ├── README.md
@@ -333,7 +353,7 @@ Sistema de chat multi-usuario con Streamlit que integra memoria vectorial (Chrom
 | `config.py` | Configuración del sistema |
 | `utils.py` | Utilidades de formato y validación |
 
-### Nivel 10 — Memoria y Evaluación (41–54): Calidad y persistencia
+### Nivel 10 — Memoria, Evaluación y Técnicas Avanzadas (41–56)
 
 | # | Archivo | Descripción |
 |---|---------|-------------|
@@ -351,6 +371,8 @@ Sistema de chat multi-usuario con Streamlit que integra memoria vectorial (Chrom
 | 52 | `52_memoria_hibrida_tipo_mensaje.py` | Memoria híbrida con retención diferenciada por tipo de mensaje |
 | 53 | `53_memoria_ventana_adaptativa.py` | Ventana deslizante adaptativa según contexto de conversación |
 | 54 | `54_memoria_prioridad_contexto.py` | Prioridad de contexto: retiene mensajes por relevancia semántica |
+| 55 | `55_streaming_responses.py` | Streaming en tiempo real: `stream()`, `astream()`, `astream_events()` y LangGraph |
+| 56 | `56_tool_calling.py` | Tool calling: `@tool`, `bind_tools()`, agente ReAct y `with_structured_output()` |
 
 ---
 
@@ -529,7 +551,7 @@ streamlit run nivel_8_aplicaciones/39_streamlit_chatbox.py   # Chatbot con persi
 streamlit run nivel_8_aplicaciones/40_streamlit_quiz_exam.py # Examen tipo test
 ```
 
-### Memoria y Evaluación — Nivel 10 (41–54)
+### Memoria, Evaluación y Técnicas Avanzadas — Nivel 10 (41–56)
 
 ```bash
 python nivel_10_memoria_y_evaluacion/41_conversacion_con_memoria.py
@@ -546,6 +568,8 @@ python nivel_10_memoria_y_evaluacion/51_memoria_limite_tokens.py
 python nivel_10_memoria_y_evaluacion/52_memoria_hibrida_tipo_mensaje.py
 python nivel_10_memoria_y_evaluacion/53_memoria_ventana_adaptativa.py
 python nivel_10_memoria_y_evaluacion/54_memoria_prioridad_contexto.py
+python nivel_10_memoria_y_evaluacion/55_streaming_responses.py
+python nivel_10_memoria_y_evaluacion/56_tool_calling.py
 ```
 
 ### Proyecto RAG Legal (nivel 9)
@@ -643,12 +667,12 @@ Recursos y datos de ejemplo utilizados por los scripts:
 
 ## 📌 Notas de organización
 
-- La secuencia oficial de aprendizaje es **01 → 54**, seguida de los proyectos integradores.
+- La secuencia oficial de aprendizaje es **01 → 56**, seguida de los proyectos integradores.
 - Los niveles 1–6 cubren fundamentos de LangChain puro.
 - El nivel 7 introduce **LangGraph** (grafos de estado, workflows y checkpointers).
 - El nivel 8 agrupa las aplicaciones completas con **Streamlit**.
 - El nivel 9 contiene **6 proyectos integradores** independientes y completos.
-- El nivel 10 cubre **memoria conversacional** (fundamentos, LangChain, LangGraph, ventana deslizante, persistencia SQLite, memoria vectorial, resumen, filtrado inteligente, límite de tokens, híbrida por tipo, ventana adaptativa, prioridad de contexto) y **evaluación de LLMs**.
+- El nivel 10 cubre **memoria conversacional**, **evaluación de LLMs**, **streaming en tiempo real** y **tool calling** con OpenAI.
 - Los datos y recursos de ejemplo están centralizados en la carpeta `datos/`.
 - El archivo `22_embeding_language.py` conserva ese nombre por compatibilidad histórica.
 - Todas las rutas se calculan dinámicamente a partir de la ubicación de cada script.
@@ -683,6 +707,69 @@ Este repositorio está organizado en **10 niveles de dificultad creciente**:
 | 7 | LangGraph | 32–37 |
 | 8 | Aplicaciones Streamlit | 38–40 |
 | 9 | Proyectos integradores | Asistente Legal, Agente IA, HelpDesk, YouTube Downloader, DIF System, Multi-User Chat |
-| 10 | Memoria y Evaluación | 41–48 |
+| 10 | Memoria, Evaluación, Streaming y Tool Calling | 41–56 |
 
 Todo el stack, dependencias y formas de ejecución están centralizados en este README.
+
+---
+
+## 🎓 Competencias demostradas
+
+Estas son las habilidades técnicas que cubre este repositorio — listas para incluir en tu perfil de LinkedIn:
+
+| Área | Competencias |
+|------|-------------|
+| **LangChain** | PromptTemplates, LCEL chains, OutputParsers, Pydantic, RunnableParallel |
+| **Document Loaders** | Web, PDF, CSV, YouTube, HTML, Selenium, Git, Google Drive |
+| **Embeddings & RAG** | FAISS, ChromaDB, MultiQueryRetriever, EnsembleRetriever (FAISS+BM25), ContextualCompressionRetriever, ParentDocumentRetriever, SelfQueryRetriever |
+| **LangGraph** | StateGraph, conditional edges, MemorySaver, SqliteSaver, ToolNode, ReAct agent |
+| **Streamlit** | Chatbot, quiz interactivo, sesiones persistidas, upload de archivos |
+| **Memoria** | Buffer, sliding window, summary, vectorial (ChromaDB), SQLite persistence, adaptive window, token-limit, context priority |
+| **Evaluación** | CriteriaEvalChain, QAEvalChain, criterios personalizados |
+| **Streaming** | `stream()`, `astream()`, `astream_events()`, streaming en LangGraph |
+| **Tool Calling** | `@tool`, `bind_tools()`, ToolNode, ReAct loop, `with_structured_output()` |
+| **DevOps** | Docker, docker-compose, tests unitarios (pytest) |
+
+---
+
+## 🗺️ Roadmap — Próximas mejoras
+
+Temas aún no cubiertos que complementarían el aprendizaje:
+
+| Tema | Descripción | Prioridad |
+|------|-------------|-----------|
+| **LangSmith** | Trazabilidad, debugging y evaluación de pipelines en producción | Alta |
+| **RAG avanzado (RAGAS)** | Evaluación automática de sistemas RAG: faithfulness, relevance, correctness | Alta |
+| **Multimodal (GPT-4o Vision)** | Análisis de imágenes integrado en cadenas y agentes | Media |
+| **LangServe / FastAPI** | Despliegue de cadenas LangChain como API REST | Media |
+| **Async completo** | Patrones async/await en cadenas LCEL y grafos LangGraph | Media |
+| **Few-shot prompting** | Selección dinámica de ejemplos con `SemanticSimilarityExampleSelector` | Baja |
+| **Caching semántico** | `GPTCache` / `InMemoryCache` para reducir latencia y costes de API | Baja |
+| **Agentes Plan-and-Execute** | Planificación a largo plazo con `PlanAndExecute` o agentes custom | Baja |
+
+---
+
+## 📣 Comparte este proyecto en LinkedIn
+
+Copia y pega esta plantilla en LinkedIn para compartir tu aprendizaje:
+
+---
+
+> 🚀 **He completado mi ruta de aprendizaje de LangChain + LangGraph + OpenAI**
+>
+> Durante este proyecto construí desde cero **56 ejercicios** y **6 proyectos completos** cubriendo:
+>
+> ✅ Prompts, cadenas LCEL y salida estructurada con Pydantic
+> ✅ Carga de documentos desde 9 fuentes (PDF, web, YouTube, CSV, Git…)
+> ✅ RAG con FAISS, ChromaDB y 8 tipos de retriever
+> ✅ Workflows con **LangGraph**: grafos de estado, edges condicionales y persistencia SQLite
+> ✅ Apps con **Streamlit**: chatbot, quiz y HelpDesk con RAG
+> ✅ 6 proyectos reales: RAG Legal, Agente IA dockerizado, HelpDesk, Chat Multi-Usuario, YouTube Downloader y Asistente de Gimnasio
+> ✅ 14 estrategias de memoria conversacional (buffer, resumen, vectorial, híbrida, adaptativa…)
+> ✅ **Streaming** en tiempo real con `stream()` / `astream_events()`
+> ✅ **Tool calling** con `@tool`, `bind_tools()` y agente ReAct
+>
+> Todo el código está disponible en GitHub:
+> 👉 https://github.com/juanfranciscofernandezherreros/streamlint
+>
+> #LangChain #LangGraph #OpenAI #Python #IA #MachineLearning #RAG #Streamlit #GenerativeAI #NLP
