@@ -22,6 +22,7 @@ Gestión de **memoria conversacional**, **evaluación de salidas de LLMs**, **st
 | 54 | `54_memoria_prioridad_contexto.py` | Prioridad de contexto: retiene mensajes por relevancia semántica al turno actual. |
 | 55 | `55_streaming_responses.py` | Respuestas en tiempo real con `stream()`, `astream()` y `astream_events()`. |
 | 56 | `56_tool_calling.py` | Tool calling: `@tool`, `bind_tools()`, agente ReAct y salida estructurada Pydantic. |
+| 57 | `57_memory_manager.py` | Gestor de memoria híbrido: ventana deslizante + resumen LLM + memoria vectorial combinados. |
 
 ## Conceptos clave
 
@@ -75,7 +76,15 @@ Gestión de **memoria conversacional**, **evaluación de salidas de LLMs**, **st
 - **`tools_condition`** — Edge condicional: si hay `tool_calls` → ejecutar tools; si no → END.
 - **`with_structured_output()`** — Obtiene una respuesta validada con un esquema Pydantic.
 
-## Ejecución
+### Gestor de memoria híbrido (script 57)
+
+- **`SlidingWindowMemory`** — Ventana deslizante de los últimos N mensajes usando `deque`.
+- **`SummaryMemory`** — Resumen progresivo de la conversación generado por el LLM.
+- **`VectorMemory`** — Almacenamiento y búsqueda semántica en ChromaDB con `OpenAIEmbeddings`.
+- **`MemoryManager`** — Orquesta las tres estrategias y recorta el contexto al límite de tokens.
+- **`count_tokens`** — Conteo preciso de tokens con `tiktoken` para respetar la ventana de contexto.
+
+
 
 ```bash
 python nivel_10_memoria_y_evaluacion/41_conversacion_con_memoria.py
@@ -94,11 +103,12 @@ python nivel_10_memoria_y_evaluacion/53_memoria_ventana_adaptativa.py
 python nivel_10_memoria_y_evaluacion/54_memoria_prioridad_contexto.py
 python nivel_10_memoria_y_evaluacion/55_streaming_responses.py
 python nivel_10_memoria_y_evaluacion/56_tool_calling.py
+python nivel_10_memoria_y_evaluacion/57_memory_manager.py
 ```
 
 ## Requisitos
 
-- `langchain`, `langchain-openai`, `langgraph`, `chromadb`, `langchain-chroma`, `python-dotenv`
+- `langchain`, `langchain-openai`, `langgraph`, `chromadb`, `langchain-chroma`, `python-dotenv`, `tiktoken`
 - Variable de entorno `OPENAI_API_KEY` configurada.
 
 ## Navegación
