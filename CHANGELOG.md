@@ -2,6 +2,59 @@
 
 All notable changes merged to `master` are documented automatically.
 
+## 2026-04-06
+
+### PR #30: Add streaming & tool calling scripts, fix nivel 10 doc gaps, add LinkedIn-ready README sections
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Branch:** `copilot/review-project-for-improvement` → `master`
+- **Commit:** [`357f24a`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/357f24a4c445057c939b9e99e67c54b69401ead0)
+
+**Description:**
+
+Project review identified two completely missing foundational topics in the learning path and a documentation inconsistency where the README summary table claimed nivel 10 covered scripts 41–48 while files went up to 54.
+
+## New learning scripts
+
+| Script | Topic |
+|--------|-------|
+| `55_streaming_responses.py` | `stream()`, `astream()`, `astream_events()`, LangGraph `stream_mode="updates"` |
+| `56_tool_calling.py` | `@tool`, `bind_tools()`, `ToolNode`, ReAct loop, `with_structured_output()` + Pydantic |
+
+The `calcular` tool in script 56 uses an AST-based safe evaluator instead of `eval()`:
+
+```python
+def _evaluar_nodo(nodo: ast.AST) -> float:
+    if isinstance(nodo, ast.Constant) and isinstance(nodo.value, (int, float)):
+        return float(nodo.value)
+    if isinstance(nodo, ast.BinOp) and type(nodo.op) in _OPERADORES:
+        return _OPERADORES[type(nodo.op)](_evaluar_nodo(nodo.left), _evaluar_nodo(nodo.right))
+    ...
+```
+
+## README.md
+
+- **Badges**: Python 3.10+, LangChain, LangGraph, OpenAI, Streamlit, script/project counters, MIT license
+- **Fixed inconsistency**: summary table `41–48` → `41–56`; file tree and execution section updated to match
+- **`🎓 Competencias demostradas`**: skills table organized by area, copy-paste ready for LinkedIn profile
+- **`🗺️ Roadmap`**: 8 uncovered topics with priority (LangSmith, RAGAS, multimodal/GPT-4o Vision, LangServe, full async, few-shot, semantic caching, Plan-and-Execute)
+- **`📣 Comparte en LinkedIn`**: ready-to-paste Spanish post template with hashtags
+
+## nivel_10/README.md
+
+- Documented scripts 49–54 (previously absent from the file)
+- Added concepts sections for streaming and tool calling
+- Renamed title from vague "Técnicas Avanzadas" to "Memoria, Evaluación, Streaming y Tool Calling"
+
+**Changed files (4):**
+
+- 🟡 `README.md`
+- 🟢 `nivel_10_memoria_y_evaluacion/55_streaming_responses.py`
+- 🟢 `nivel_10_memoria_y_evaluacion/56_tool_calling.py`
+- 🟡 `nivel_10_memoria_y_evaluacion/README.md`
+
+---
+
 ## 2026-04-05
 
 ### multi chat working
