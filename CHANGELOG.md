@@ -4,6 +4,19 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-06
 
+### Create memory_manager.py
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`0451879`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/0451879e968df2be964675dbb215241f7ab8fbd2)
+
+**Changed files (1):**
+
+- 🟢 `memory_manager.py`
+
+---
+
+## 2026-04-06
+
 ### PR #30: Add streaming & tool calling scripts, fix nivel 10 doc gaps, add LinkedIn-ready README sections
 
 - **Author:** Juan Francisco Fernandez Herreros
