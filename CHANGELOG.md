@@ -4,6 +4,19 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-06
 
+### Update README.md
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`c7ce072`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/c7ce072e0f851af34e29cd323a818e88445af8ab)
+
+**Changed files (1):**
+
+- 🟡 `README.md`
+
+---
+
+## 2026-04-06
+
 ### Merge pull request #32 from juanfranciscofernandezherreros/copilot/organize-project-and-add-comments
 
 - **Author:** Juan Francisco Fernandez Herreros
