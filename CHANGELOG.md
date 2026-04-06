@@ -4,6 +4,50 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-06
 
+### PR #33: Migrate langchain.retrievers and langchain.chains imports to langchain_classic
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Branch:** `copilot/fix-module-not-found-error` → `master`
+- **Commit:** [`37cdf6f`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/37cdf6fbd4599ef4452bd032abd4f3d94db9066f)
+
+**Description:**
+
+`langchain` v1.2.15 removed the `retrievers` and `chains` submodules, causing `ModuleNotFoundError: No module named 'langchain.retrievers'` at import time. These modules now live in `langchain-classic`, which is already a project dependency.
+
+### Changes
+
+- **`nivel_9_proyectos_integradores/match_system/app.py`** — the reported crash site; migrated `MultiQueryRetriever` and `RetrievalQA` imports
+- **`nivel_6_retrievers/`** — updated 4 retriever scripts (`25`, `26`, `28`, `29`) plus a commented import in `31`
+- **`nivel_10_memoria_y_evaluacion/41_conversacion_con_memoria.py`** — migrated `ConversationChain` import
+
+Before:
+```python
+from langchain.retrievers.multi_query import MultiQueryRetriever
+from langchain.chains import RetrievalQA
+```
+
+After:
+```python
+from langchain_classic.retrievers import MultiQueryRetriever
+from langchain_classic.chains import RetrievalQA
+```
+
+No new dependencies — `langchain-classic` was already in `requirements.txt` and used by `helpdesk_system`.
+
+**Changed files (7):**
+
+- 🟡 `nivel_10_memoria_y_evaluacion/41_conversacion_con_memoria.py`
+- 🟡 `nivel_6_retrievers/25_multi_query_retriever.py`
+- 🟡 `nivel_6_retrievers/26_contextual_compression_retriever.py`
+- 🟡 `nivel_6_retrievers/28_parent_document_retriever.py`
+- 🟡 `nivel_6_retrievers/29_self_query_retriever.py`
+- 🟡 `nivel_6_retrievers/31_advanced_retrievers.py`
+- 🟡 `nivel_9_proyectos_integradores/match_system/app.py`
+
+---
+
+## 2026-04-06
+
 ### match system
 
 - **Author:** Juan Francisco
