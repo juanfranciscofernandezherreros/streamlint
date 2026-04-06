@@ -1,8 +1,8 @@
 import streamlit as st
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain.retrievers.multi_query import MultiQueryRetriever
-from langchain.chains import RetrievalQA
+from langchain_classic.retrievers import MultiQueryRetriever
+from langchain_classic.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 from config import *
 

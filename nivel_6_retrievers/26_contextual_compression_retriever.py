@@ -1,7 +1,7 @@
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain.retrievers import ContextualCompressionRetriever
-from langchain.retrievers.document_compressors import DocumentCompressorPipeline, LLMChainExtractor
+from langchain_classic.retrievers import ContextualCompressionRetriever
+from langchain_classic.retrievers.document_compressors import DocumentCompressorPipeline, LLMChainExtractor
 from langchain_community.document_transformers import EmbeddingsRedundantFilter
 from langchain_text_splitters import CharacterTextSplitter
 import os

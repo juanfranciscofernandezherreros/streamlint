@@ -1,7 +1,7 @@
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain.chains.query_constructor.base import AttributeInfo
-from langchain.retrievers.self_query.base import SelfQueryRetriever
+from langchain_classic.chains.query_constructor.base import AttributeInfo
+from langchain_classic.retrievers.self_query.base import SelfQueryRetriever
 from langchain.schema import Document
 
 # 1. Crear documentos de ejemplo con metadatos ricos

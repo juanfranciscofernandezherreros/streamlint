@@ -22,7 +22,7 @@ from langchain.memory import (
     ConversationBufferWindowMemory,
     ConversationSummaryMemory,
 )
-from langchain.chains import ConversationChain
+from langchain_classic.chains import ConversationChain
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
 
