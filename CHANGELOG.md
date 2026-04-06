@@ -4,6 +4,21 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-06
 
+### match_system
+
+- **Author:** Juan Francisco
+- **Commit:** [`377b73c`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/377b73c237ed984971b0d725013ca2aa24c89f22)
+
+**Changed files (3):**
+
+- 🟢 `nivel_9_proyectos_integradores/match_system/app.py`
+- 🟢 `nivel_9_proyectos_integradores/match_system/config.py`
+- 🟢 `nivel_9_proyectos_integradores/match_system/setup_rag.py`
+
+---
+
+## 2026-04-06
+
 ### Update README.md
 
 - **Author:** Juan Francisco Fernandez Herreros
