@@ -756,22 +756,3 @@ Temas aún no cubiertos que complementarían el aprendizaje:
 Copia y pega esta plantilla en LinkedIn para compartir tu aprendizaje:
 
 ---
-
-> 🚀 **He completado mi ruta de aprendizaje de LangChain + LangGraph + OpenAI**
->
-> Durante este proyecto construí desde cero **56 ejercicios** y **6 proyectos completos** cubriendo:
->
-> ✅ Prompts, cadenas LCEL y salida estructurada con Pydantic
-> ✅ Carga de documentos desde 9 fuentes (PDF, web, YouTube, CSV, Git…)
-> ✅ RAG con FAISS, ChromaDB y 8 tipos de retriever
-> ✅ Workflows con **LangGraph**: grafos de estado, edges condicionales y persistencia SQLite
-> ✅ Apps con **Streamlit**: chatbot, quiz y HelpDesk con RAG
-> ✅ 6 proyectos reales: RAG Legal, Agente IA dockerizado, HelpDesk, Chat Multi-Usuario, YouTube Downloader y Asistente de Gimnasio
-> ✅ 14 estrategias de memoria conversacional (buffer, resumen, vectorial, híbrida, adaptativa…)
-> ✅ **Streaming** en tiempo real con `stream()` / `astream_events()`
-> ✅ **Tool calling** con `@tool`, `bind_tools()` y agente ReAct
->
-> Todo el código está disponible en GitHub:
-> 👉 https://github.com/juanfranciscofernandezherreros/streamlint
->
-> #LangChain #LangGraph #OpenAI #Python #IA #MachineLearning #RAG #Streamlit #GenerativeAI #NLP
