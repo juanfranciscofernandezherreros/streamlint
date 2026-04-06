@@ -4,6 +4,19 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-06
 
+### Initialize vector database and add search functionality
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`6844126`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/68441266a3de23739e13d150abdf459a2925d07b)
+
+**Changed files (1):**
+
+- 🟢 `init_database_vector.py`
+
+---
+
+## 2026-04-06
+
 ### Merge pull request #31 from juanfranciscofernandezherreros/copilot/review-memory-manager
 
 - **Author:** Juan Francisco Fernandez Herreros
