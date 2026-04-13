@@ -15,6 +15,7 @@ Carga de documentos desde **9 fuentes diferentes**: web, PDF, carpetas, YouTube,
 | 17 | `17_selenium_url_loader.py` | Cargar sitios con JavaScript (SPAs) | `SeleniumURLLoader` |
 | 18 | `18_git_loader.py` | Cargar código fuente desde repositorios Git | `GitLoader` |
 | 19 | `19_google_drive.py` | Cargar documentos desde Google Drive | `GoogleDriveLoader` |
+| 58 | `58_audio_transcription.py` | Transcribir audio MP3/MP4 con Whisper | `openai.audio.transcriptions` |
 
 ## Conceptos clave
 
@@ -34,6 +35,7 @@ python nivel_4_document_loaders/16_csv_loader.py
 python nivel_4_document_loaders/17_selenium_url_loader.py
 python nivel_4_document_loaders/18_git_loader.py
 python nivel_4_document_loaders/19_google_drive.py
+python nivel_4_document_loaders/58_audio_transcription.py audio/reunion.mp3
 ```
 
 ## Dependencias opcionales
@@ -46,6 +48,7 @@ pip install youtube-transcript-api # YoutubeLoader (14)
 pip install selenium               # SeleniumURLLoader (17)
 pip install gitpython              # GitLoader (18)
 pip install langchain-google-community google-auth-oauthlib google-api-python-client  # GoogleDriveLoader (19)
+# pip install openai   # ya incluido en requirements.txt — Whisper transcription (58)
 ```
 
 ## Navegación
