@@ -2,6 +2,44 @@
 
 All notable changes merged to `master` are documented automatically.
 
+## 2026-04-13
+
+### PR #34: feat: add MP3/MP4 audio transcription loader (nivel_4, script 58)
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Branch:** `copilot/transcribe-audio-file` → `master`
+- **Commit:** [`0d6f953`](https://github.com/juanfranciscofernandezherreros/streamlint/commit/0d6f953c5fd8c35372c84a634a6c69a0c250a8ec)
+
+**Description:**
+
+Adds `58_audio_transcription.py` to `nivel_4_document_loaders` — transcribes local MP3/MP4 (and wav, m4a, webm, mov, mkv) files via OpenAI Whisper and wraps the result in a LangChain `Document` ready for RAG pipelines.
+
+## Changes
+
+- **`nivel_4_document_loaders/58_audio_transcription.py`**
+  - `transcribe_audio(file_path, language)` — validates extension, calls `whisper-1` via `openai.audio.transcriptions`, returns a `Document` with `page_content` (transcript) and metadata (`source`, `format`, `language`, `size_kb`)
+  - CLI entry point: accepts audio path as positional arg; handles `FileNotFoundError`, `ValueError`, `AuthenticationError`
+- **`nivel_4_document_loaders/README.md`** — adds script 58 to the table and execution examples
+
+No new dependencies; `openai` was already in `requirements.txt`.
+
+```bash
+python nivel_4_document_loaders/58_audio_transcription.py audio/reunion.mp3
+# 🎙️  Archivo:  reunion.mp3
+# 📦  Tamaño:   2048.0 KB
+# ⏳  Transcribiendo con OpenAI Whisper...
+#
+# === TRANSCRIPCIÓN ===
+# Buenos días a todos, hoy vamos a revisar...
+```
+
+**Changed files (2):**
+
+- 🟢 `nivel_4_document_loaders/58_audio_transcription.py`
+- 🟡 `nivel_4_document_loaders/README.md`
+
+---
+
 ## 2026-04-06
 
 ### PR #33: Migrate langchain.retrievers and langchain.chains imports to langchain_classic
