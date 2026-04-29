@@ -4,6 +4,19 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-29
 
+### Create herramientas.py
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`8f3d55d`](https://github.com/juanfranciscofernandezherreros/curso-python-ia/commit/8f3d55d989ca9a27f3085aa4400a8e287d6ea9bb)
+
+**Changed files (1):**
+
+- 🟢 `herramientas.py`
+
+---
+
+## 2026-04-29
+
 ### Delete nivel_10_langchain
 
 - **Author:** Juan Francisco Fernandez Herreros
