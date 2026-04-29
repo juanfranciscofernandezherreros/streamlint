@@ -4,6 +4,19 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-29
 
+### Create herramientas_integradas.py
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`3862cd8`](https://github.com/juanfranciscofernandezherreros/curso-python-ia/commit/3862cd81a9ac37027640f82327fc0412f32e8ba7)
+
+**Changed files (1):**
+
+- 🟢 `herramientas_integradas.py`
+
+---
+
+## 2026-04-29
+
 ### Create herramientas_personalizadas_artefacto.py
 
 - **Author:** Juan Francisco Fernandez Herreros
