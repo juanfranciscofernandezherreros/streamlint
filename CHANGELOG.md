@@ -4,6 +4,19 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-29
 
+### Create herramientas_personalizadas_artefacto.py
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`b125f1d`](https://github.com/juanfranciscofernandezherreros/curso-python-ia/commit/b125f1d3e37607269faeea7bb7440b8634671009)
+
+**Changed files (1):**
+
+- 🟢 `herramientas_personalizadas_artefacto.py`
+
+---
+
+## 2026-04-29
+
 ### Create herramientas_personalizadas_llm.py
 
 - **Author:** Juan Francisco Fernandez Herreros
