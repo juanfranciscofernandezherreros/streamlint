@@ -4,6 +4,19 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-29
 
+### Delete nivel_10_langchain
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`6a41612`](https://github.com/juanfranciscofernandezherreros/curso-python-ia/commit/6a41612227025b4799134da49abf454b0d1ee60a)
+
+**Changed files (1):**
+
+- 🔴 `nivel_10_langchain`
+
+---
+
+## 2026-04-29
+
 ### Create nivel_10_langchain
 
 - **Author:** Juan Francisco Fernandez Herreros
