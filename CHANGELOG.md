@@ -2,6 +2,19 @@
 
 All notable changes merged to `master` are documented automatically.
 
+## 2026-04-29
+
+### Create nivel_10_langchain
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`82e77a9`](https://github.com/juanfranciscofernandezherreros/curso-python-ia/commit/82e77a9a35ad7a3b526a074b08b4d96459951b45)
+
+**Changed files (1):**
+
+- 🟢 `nivel_10_langchain`
+
+---
+
 ## 2026-04-13
 
 ### PR #34: feat: add MP3/MP4 audio transcription loader (nivel_4, script 58)
