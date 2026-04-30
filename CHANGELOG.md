@@ -4,6 +4,19 @@ All notable changes merged to `master` are documented automatically.
 
 ## 2026-04-30
 
+### Delete herramientas_integradas_wiki.py
+
+- **Author:** Juan Francisco Fernandez Herreros
+- **Commit:** [`c593af8`](https://github.com/juanfranciscofernandezherreros/curso-python-ia/commit/c593af8b49d9ff33a25e0eebb5707856d2991418)
+
+**Changed files (1):**
+
+- 🔴 `herramientas_integradas_wiki.py`
+
+---
+
+## 2026-04-30
+
 ### Create herramientas_integradas_wiki.py
 
 - **Author:** Juan Francisco Fernandez Herreros
